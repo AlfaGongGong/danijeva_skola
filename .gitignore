@@ -68,3 +68,5 @@ htmlcov/
 # Ngrok
 ngrok.log
 ngrok.yml
+/snapshot.txt
+/token.txt
