@@ -1,0 +1,1725 @@
+════════════════════════════════════════════════════════════════════════
+  PROJECT SNAPSHOT — testovi
+  Generirano: 2026-05-31 00:34:43
+  Root: C:\Users\AlfaGongGong\Документы\GitHub\testovi
+════════════════════════════════════════════════════════════════════════
+
+STRUKTURA PROJEKTA:
+
+testovi/
+
+├── atlas_processed/
+│   ├── images/
+│   │   ├── atlas_page_001.png
+│   │   ├── atlas_page_002.png
+│   │   ├── atlas_page_003.png
+│   │   ├── atlas_page_004.png
+│   │   ├── atlas_page_005.png
+│   │   ├── atlas_page_006.png
+│   │   ├── atlas_page_007.png
+│   │   ├── atlas_page_008.png
+│   │   ├── atlas_page_009.png
+│   │   ├── atlas_page_010.png
+│   │   ├── atlas_page_011.png
+│   │   ├── atlas_page_012.png
+│   │   ├── atlas_page_013.png
+│   │   ├── atlas_page_014.png
+│   │   ├── atlas_page_015.png
+│   │   ├── atlas_page_016.png
+│   │   ├── atlas_page_017.png
+│   │   ├── atlas_page_018.png
+│   │   ├── atlas_page_019.png
+│   │   ├── atlas_page_020.png
+│   │   ├── atlas_page_021.png
+│   │   ├── atlas_page_022.png
+│   │   ├── atlas_page_023.png
+│   │   ├── atlas_page_024.png
+│   │   ├── atlas_page_025.png
+│   │   ├── atlas_page_026.png
+│   │   ├── atlas_page_027.png
+│   │   ├── atlas_page_028.png
+│   │   ├── atlas_page_029.png
+│   │   ├── atlas_page_030.png
+│   │   ├── atlas_page_031.png
+│   │   ├── atlas_page_032.png
+│   │   ├── atlas_page_033.png
+│   │   ├── atlas_page_034.png
+│   │   ├── atlas_page_035.png
+│   │   ├── atlas_page_036.png
+│   │   ├── atlas_page_037.png
+│   │   ├── atlas_page_038.png
+│   │   ├── atlas_page_039.png
+│   │   ├── atlas_page_040.png
+│   │   ├── atlas_page_041.png
+│   │   ├── atlas_page_042.png
+│   │   ├── atlas_page_043.png
+│   │   ├── atlas_page_044.png
+│   │   ├── atlas_page_045.png
+│   │   ├── atlas_page_046.png
+│   │   ├── atlas_page_047.png
+│   │   ├── atlas_page_048.png
+│   │   ├── atlas_page_049.png
+│   │   ├── atlas_page_050.png
+│   │   ├── atlas_page_051.png
+│   │   ├── atlas_page_052.png
+│   │   ├── atlas_page_053.png
+│   │   ├── atlas_page_054.png
+│   │   ├── atlas_page_055.png
+│   │   ├── atlas_page_056.png
+│   │   ├── atlas_page_057.png
+│   │   ├── atlas_page_058.png
+│   │   ├── atlas_page_059.png
+│   │   ├── atlas_page_060.png
+│   │   ├── atlas_page_061.png
+│   │   ├── atlas_page_062.png
+│   │   ├── atlas_page_063.png
+│   │   ├── atlas_page_064.png
+│   │   ├── atlas_page_065.png
+│   │   ├── atlas_page_066.png
+│   │   ├── atlas_page_067.png
+│   │   ├── atlas_page_068.png
+│   │   ├── atlas_page_069.png
+│   │   ├── atlas_page_070.png
+│   │   ├── atlas_page_071.png
+│   │   ├── atlas_page_072.png
+│   │   ├── atlas_page_073.png
+│   │   ├── atlas_page_074.png
+│   │   ├── atlas_page_075.png
+│   │   ├── atlas_page_076.png
+│   │   ├── atlas_page_077.png
+│   │   ├── atlas_page_078.png
+│   │   ├── atlas_page_079.png
+│   │   ├── atlas_page_080.png
+│   │   ├── atlas_page_081.png
+│   │   ├── atlas_page_082.png
+│   │   ├── atlas_page_083.png
+│   │   ├── atlas_page_084.png
+│   │   ├── atlas_page_085.png
+│   │   ├── atlas_page_086.png
+│   │   ├── atlas_page_087.png
+│   │   ├── atlas_page_088.png
+│   │   ├── atlas_page_089.png
+│   │   ├── atlas_page_090.png
+│   │   ├── atlas_page_091.png
+│   │   ├── atlas_page_092.png
+│   │   ├── atlas_page_093.png
+│   │   ├── atlas_page_094.png
+│   │   ├── atlas_page_095.png
+│   │   ├── atlas_page_096.png
+│   │   ├── atlas_page_097.png
+│   │   ├── atlas_page_098.png
+│   │   ├── atlas_page_099.png
+│   │   ├── atlas_page_100.png
+│   │   ├── atlas_page_101.png
+│   │   ├── atlas_page_102.png
+│   │   ├── atlas_page_103.png
+│   │   ├── atlas_page_104.png
+│   │   ├── atlas_page_105.png
+│   │   ├── atlas_page_106.png
+│   │   ├── atlas_page_107.png
+│   │   ├── atlas_page_108.png
+│   │   ├── atlas_page_109.png
+│   │   ├── atlas_page_110.png
+│   │   ├── atlas_page_111.png
+│   │   ├── atlas_page_112.png
+│   │   ├── atlas_page_113.png
+│   │   ├── atlas_page_114.png
+│   │   ├── atlas_page_115.png
+│   │   ├── atlas_page_116.png
+│   │   ├── atlas_page_117.png
+│   │   ├── atlas_page_118.png
+│   │   ├── atlas_page_119.png
+│   │   ├── atlas_page_120.png
+│   │   ├── atlas_page_121.png
+│   │   ├── atlas_page_122.png
+│   │   ├── atlas_page_123.png
+│   │   ├── atlas_page_124.png
+│   │   ├── atlas_page_125.png
+│   │   ├── atlas_page_126.png
+│   │   ├── atlas_page_127.png
+│   │   ├── atlas_page_128.png
+│   │   ├── atlas_page_129.png
+│   │   ├── atlas_page_130.png
+│   │   ├── atlas_page_131.png
+│   │   ├── atlas_page_132.png
+│   │   ├── atlas_page_133.png
+│   │   ├── atlas_page_134.png
+│   │   ├── atlas_page_135.png
+│   │   ├── atlas_page_136.png
+│   │   ├── atlas_page_137.png
+│   │   ├── atlas_page_138.png
+│   │   ├── atlas_page_139.png
+│   │   ├── atlas_page_140.png
+│   │   ├── atlas_page_141.png
+│   │   ├── atlas_page_142.png
+│   │   ├── atlas_page_143.png
+│   │   ├── atlas_page_144.png
+│   │   ├── atlas_page_145.png
+│   │   ├── atlas_page_146.png
+│   │   ├── atlas_page_147.png
+│   │   ├── atlas_page_148.png
+│   │   ├── atlas_page_149.png
+│   │   ├── atlas_page_150.png
+│   │   ├── atlas_page_151.png
+│   │   ├── atlas_page_152.png
+│   │   ├── atlas_page_153.png
+│   │   ├── atlas_page_154.png
+│   │   ├── atlas_page_155.png
+│   │   ├── atlas_page_156.png
+│   │   ├── atlas_page_157.png
+│   │   ├── atlas_page_158.png
+│   │   ├── atlas_page_159.png
+│   │   ├── atlas_page_160.png
+│   │   ├── atlas_page_161.png
+│   │   ├── atlas_page_162.png
+│   │   ├── atlas_page_163.png
+│   │   ├── atlas_page_164.png
+│   │   ├── atlas_page_165.png
+│   │   ├── atlas_page_166.png
+│   │   ├── atlas_page_167.png
+│   │   ├── atlas_page_168.png
+│   │   ├── atlas_page_169.png
+│   │   ├── atlas_page_170.png
+│   │   ├── atlas_page_171.png
+│   │   ├── atlas_page_172.png
+│   │   ├── atlas_page_173.png
+│   │   ├── atlas_page_174.png
+│   │   ├── atlas_page_175.png
+│   │   ├── atlas_page_176.png
+│   │   ├── atlas_page_177.png
+│   │   ├── atlas_page_178.png
+│   │   ├── atlas_page_179.png
+│   │   ├── atlas_page_180.png
+│   │   ├── atlas_page_181.png
+│   │   ├── atlas_page_182.png
+│   │   ├── atlas_page_183.png
+│   │   ├── atlas_page_184.png
+│   │   ├── atlas_page_185.png
+│   │   ├── atlas_page_186.png
+│   │   ├── atlas_page_187.png
+│   │   ├── atlas_page_188.png
+│   │   ├── atlas_page_189.png
+│   │   ├── atlas_page_190.png
+│   │   ├── atlas_page_191.png
+│   │   ├── atlas_page_192.png
+│   │   ├── atlas_page_193.png
+│   │   ├── atlas_page_194.png
+│   │   ├── atlas_page_195.png
+│   │   ├── atlas_page_196.png
+│   │   ├── atlas_page_197.png
+│   │   ├── atlas_page_198.png
+│   │   ├── atlas_page_199.png
+│   │   ├── atlas_page_200.png
+│   │   ├── atlas_page_201.png
+│   │   ├── atlas_page_202.png
+│   │   ├── atlas_page_203.png
+│   │   ├── atlas_page_204.png
+│   │   ├── atlas_page_205.png
+│   │   ├── atlas_page_206.png
+│   │   ├── atlas_page_207.png
+│   │   ├── atlas_page_208.png
+│   │   ├── atlas_page_209.png
+│   │   ├── atlas_page_210.png
+│   │   ├── atlas_page_211.png
+│   │   ├── atlas_page_212.png
+│   │   ├── atlas_page_213.png
+│   │   ├── atlas_page_214.png
+│   │   ├── atlas_page_215.png
+│   │   ├── atlas_page_216.png
+│   │   ├── atlas_page_217.png
+│   │   ├── atlas_page_218.png
+│   │   ├── atlas_page_219.png
+│   │   ├── atlas_page_220.png
+│   │   ├── atlas_page_221.png
+│   │   ├── atlas_page_222.png
+│   │   ├── atlas_page_223.png
+│   │   ├── atlas_page_224.png
+│   │   ├── atlas_page_225.png
+│   │   ├── atlas_page_226.png
+│   │   ├── atlas_page_227.png
+│   │   ├── atlas_page_228.png
+│   │   ├── atlas_page_229.png
+│   │   ├── atlas_page_230.png
+│   │   ├── atlas_page_231.png
+│   │   ├── atlas_page_232.png
+│   │   ├── atlas_page_233.png
+│   │   ├── atlas_page_234.png
+│   │   ├── atlas_page_235.png
+│   │   ├── atlas_page_236.png
+│   │   ├── atlas_page_237.png
+│   │   ├── atlas_page_238.png
+│   │   ├── atlas_page_239.png
+│   │   ├── atlas_page_240.png
+│   │   ├── atlas_page_241.png
+│   │   ├── atlas_page_242.png
+│   │   ├── atlas_page_243.png
+│   │   ├── atlas_page_244.png
+│   │   ├── atlas_page_245.png
+│   │   ├── atlas_page_246.png
+│   │   ├── atlas_page_247.png
+│   │   ├── atlas_page_248.png
+│   │   ├── atlas_page_249.png
+│   │   ├── atlas_page_250.png
+│   │   ├── atlas_page_251.png
+│   │   ├── atlas_page_252.png
+│   │   ├── atlas_page_253.png
+│   │   ├── atlas_page_254.png
+│   │   ├── atlas_page_255.png
+│   │   ├── atlas_page_256.png
+│   │   ├── atlas_page_257.png
+│   │   ├── atlas_page_258.png
+│   │   ├── atlas_page_259.png
+│   │   ├── atlas_page_260.png
+│   │   ├── atlas_page_261.png
+│   │   ├── atlas_page_262.png
+│   │   ├── atlas_page_263.png
+│   │   ├── atlas_page_264.png
+│   │   ├── atlas_page_265.png
+│   │   ├── atlas_page_266.png
+│   │   ├── atlas_page_267.png
+│   │   ├── atlas_page_268.png
+│   │   ├── atlas_page_269.png
+│   │   ├── atlas_page_270.png
+│   │   ├── atlas_page_271.png
+│   │   ├── atlas_page_272.png
+│   │   ├── atlas_page_273.png
+│   │   ├── atlas_page_274.png
+│   │   ├── atlas_page_275.png
+│   │   ├── atlas_page_276.png
+│   │   ├── atlas_page_277.png
+│   │   ├── atlas_page_278.png
+│   │   ├── atlas_page_279.png
+│   │   ├── atlas_page_280.png
+│   │   ├── atlas_page_281.png
+│   │   ├── atlas_page_282.png
+│   │   ├── atlas_page_283.png
+│   │   ├── atlas_page_284.png
+│   │   ├── atlas_page_285.png
+│   │   ├── atlas_page_286.png
+│   │   ├── atlas_page_287.png
+│   │   ├── atlas_page_288.png
+│   │   ├── atlas_page_289.png
+│   │   ├── atlas_page_290.png
+│   │   ├── atlas_page_291.png
+│   │   ├── atlas_page_292.png
+│   │   ├── atlas_page_293.png
+│   │   ├── atlas_page_294.png
+│   │   ├── atlas_page_295.png
+│   │   ├── atlas_page_296.png
+│   │   ├── atlas_page_297.png
+│   │   ├── atlas_page_298.png
+│   │   ├── atlas_page_299.png
+│   │   ├── atlas_page_300.png
+│   │   ├── atlas_page_301.png
+│   │   ├── atlas_page_302.png
+│   │   ├── atlas_page_303.png
+│   │   ├── atlas_page_304.png
+│   │   ├── atlas_page_305.png
+│   │   ├── atlas_page_306.png
+│   │   ├── atlas_page_307.png
+│   │   ├── atlas_page_308.png
+│   │   ├── atlas_page_309.png
+│   │   ├── atlas_page_310.png
+│   │   ├── atlas_page_311.png
+│   │   ├── atlas_page_312.png
+│   │   ├── atlas_page_313.png
+│   │   ├── atlas_page_314.png
+│   │   ├── atlas_page_315.png
+│   │   ├── atlas_page_316.png
+│   │   ├── atlas_page_317.png
+│   │   ├── atlas_page_318.png
+│   │   ├── atlas_page_319.png
+│   │   ├── atlas_page_320.png
+│   │   ├── atlas_page_321.png
+│   │   ├── atlas_page_322.png
+│   │   ├── atlas_page_323.png
+│   │   ├── atlas_page_324.png
+│   │   ├── atlas_page_325.png
+│   │   ├── atlas_page_326.png
+│   │   ├── atlas_page_327.png
+│   │   ├── atlas_page_328.png
+│   │   ├── atlas_page_329.png
+│   │   ├── atlas_page_330.png
+│   │   ├── atlas_page_331.png
+│   │   ├── atlas_page_332.png
+│   │   ├── atlas_page_333.png
+│   │   ├── atlas_page_334.png
+│   │   ├── atlas_page_335.png
+│   │   ├── atlas_page_336.png
+│   │   ├── atlas_page_337.png
+│   │   ├── atlas_page_338.png
+│   │   ├── atlas_page_339.png
+│   │   ├── atlas_page_340.png
+│   │   ├── atlas_page_341.png
+│   │   ├── atlas_page_342.png
+│   │   ├── atlas_page_343.png
+│   │   ├── atlas_page_344.png
+│   │   ├── atlas_page_345.png
+│   │   ├── atlas_page_346.png
+│   │   ├── atlas_page_347.png
+│   │   ├── atlas_page_348.png
+│   │   ├── atlas_page_349.png
+│   │   ├── atlas_page_350.png
+│   │   ├── atlas_page_351.png
+│   │   ├── atlas_page_352.png
+│   │   ├── atlas_page_353.png
+│   │   ├── atlas_page_354.png
+│   │   ├── atlas_page_355.png
+│   │   ├── atlas_page_356.png
+│   │   ├── atlas_page_357.png
+│   │   ├── atlas_page_358.png
+│   │   ├── atlas_page_359.png
+│   │   ├── atlas_page_360.png
+│   │   ├── atlas_page_361.png
+│   │   ├── atlas_page_362.png
+│   │   ├── atlas_page_363.png
+│   │   ├── atlas_page_364.png
+│   │   ├── atlas_page_365.png
+│   │   ├── atlas_page_366.png
+│   │   ├── atlas_page_367.png
+│   │   ├── atlas_page_368.png
+│   │   ├── atlas_page_369.png
+│   │   ├── atlas_page_370.png
+│   │   ├── atlas_page_371.png
+│   │   ├── atlas_page_372.png
+│   │   ├── atlas_page_373.png
+│   │   ├── atlas_page_374.png
+│   │   ├── atlas_page_375.png
+│   │   ├── atlas_page_376.png
+│   │   ├── atlas_page_377.png
+│   │   ├── atlas_page_378.png
+│   │   ├── atlas_page_379.png
+│   │   ├── atlas_page_380.png
+│   │   ├── atlas_page_381.png
+│   │   ├── atlas_page_382.png
+│   │   ├── atlas_page_383.png
+│   │   ├── atlas_page_384.png
+│   │   ├── atlas_page_385.png
+│   │   ├── atlas_page_386.png
+│   │   ├── atlas_page_387.png
+│   │   ├── atlas_page_388.png
+│   │   ├── atlas_page_389.png
+│   │   ├── atlas_page_390.png
+│   │   ├── atlas_page_391.png
+│   │   ├── atlas_page_392.png
+│   │   ├── atlas_page_393.png
+│   │   ├── atlas_page_394.png
+│   │   ├── atlas_page_395.png
+│   │   ├── atlas_page_396.png
+│   │   ├── atlas_page_397.png
+│   │   ├── atlas_page_398.png
+│   │   ├── atlas_page_399.png
+│   │   ├── atlas_page_400.png
+│   │   ├── atlas_page_401.png
+│   │   ├── atlas_page_402.png
+│   │   ├── atlas_page_403.png
+│   │   ├── atlas_page_404.png
+│   │   ├── atlas_page_405.png
+│   │   ├── atlas_page_406.png
+│   │   ├── atlas_page_407.png
+│   │   ├── atlas_page_408.png
+│   │   ├── atlas_page_409.png
+│   │   ├── atlas_page_410.png
+│   │   ├── atlas_page_411.png
+│   │   ├── atlas_page_412.png
+│   │   ├── atlas_page_413.png
+│   │   ├── atlas_page_414.png
+│   │   ├── atlas_page_415.png
+│   │   ├── atlas_page_416.png
+│   │   ├── atlas_page_417.png
+│   │   ├── atlas_page_418.png
+│   │   ├── atlas_page_419.png
+│   │   ├── atlas_page_420.png
+│   │   ├── atlas_page_421.png
+│   │   ├── atlas_page_422.png
+│   │   ├── atlas_page_423.png
+│   │   ├── atlas_page_424.png
+│   │   ├── atlas_page_425.png
+│   │   ├── atlas_page_426.png
+│   │   ├── atlas_page_427.png
+│   │   ├── atlas_page_428.png
+│   │   ├── atlas_page_429.png
+│   │   ├── atlas_page_430.png
+│   │   ├── atlas_page_431.png
+│   │   ├── atlas_page_432.png
+│   │   ├── atlas_page_433.png
+│   │   ├── atlas_page_434.png
+│   │   └── atlas_page_435.png
+│   └── atlas_index.json
+├── izvjestaji/
+│   ├── LOG_Dani_20260212_105853.txt
+│   ├── LOG_Dani_20260225_210033.txt
+│   ├── LOG_Dani_20260225_210152.txt
+│   ├── LOG_Dani_20260225_210630.txt
+│   ├── LOG_Dani_20260225_221046.txt
+│   └── LOG_Dani_20260225_221711.txt
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── script.js
+├── templates/
+│   └── index.html
+├── atlas.py
+├── auto_setup.py
+├── bio.sql
+├── config.py
+├── database.py
+├── grader.py
+├── gradivo.json
+├── project_snapshot.py
+├── restore_structure.py
+├── skola.db
+├── sobotta-anatomski-atlas.pdf
+├── test.py
+├── testovi.code-workspace
+├── ucenik_stats.json
+└── utils.py
+
+
+════════════════════════════════════════════════════════════════════════
+
+DATOTEKE (22 ukupno):
+
+
+── FILE: atlas.py  [6.0 KB]
+```py
+import pytesseract
+from pytesseract import Output
+from pdf2image import convert_from_path
+from PIL import Image
+import os
+import sys
+import json
+import logging
+from pathlib import Path
+from tqdm import tqdm
+
+# ==============================================================================
+# 1. KONFIGURACIJA (Vaše putanje su ubačene ovdje)
+# ==============================================================================
+
+# Putanja do vašeg PDF fajla (Zamijenite ako je drugačije)
+INPUT_PDF = (
+    r"C:\Users\AlfaGongGong\Документы\GitHub\testovi\sobotta-anatomski-atlas.pdf"
+)
+
+# Vaše sistemske putanje
+TESSERACT_CMD = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+POPPLER_PATH = r"C:\Program Files\poppler-xx\bin"  # <--- PROVJERITE DA LI SE FOLDER STVARNO ZOVE 'xx'
+
+# Folderi za izlaz
+BASE_OUTPUT_DIR = "atlas_processed"
+DB_FILE_NAME = "atlas_index.json"
+
+# ==============================================================================
+# 2. SETUP I LOGOVANJE
+# ==============================================================================
+pytesseract.pytesseract.tesseract_cmd = TESSERACT_CMD
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="[%(asctime)s] [%(levelname)s] %(message)s",
+    datefmt="%H:%M:%S",
+)
+logger = logging.getLogger("AtlasOCR")
+
+
+def check_system_paths():
+    """Provjerava da li alati stvarno postoje na disku prije početka."""
+    checks = [
+        ("Tesseract EXE", TESSERACT_CMD),
+        ("Poppler BIN", POPPLER_PATH),
+        ("Input PDF", INPUT_PDF),
+    ]
+
+    all_ok = True
+    logger.info("--- Provjera sistema ---")
+    for name, path in checks:
+        if os.path.exists(path):
+            logger.info(f"[OK] {name} pronađen: {path}")
+        else:
+            logger.critical(f"[GRESKA] {name} NIJE PRONAĐEN na putanji: {path}")
+            all_ok = False
+
+    if not all_ok:
+        logger.error("Zaustavljam skriptu jer nedostaju ključne komponente.")
+        sys.exit(1)
+    logger.info("Sistemska provjera prošla. Krećemo...")
+
+
+def setup_directories():
+    img_dir = os.path.join(BASE_OUTPUT_DIR, "images")
+    Path(img_dir).mkdir(parents=True, exist_ok=True)
+    return img_dir
+
+
+# ==============================================================================
+# 3. CORE LOGIKA (OCR I INDEKSIRANJE)
+# ==============================================================================
+def analyze_atlas_page(image_path, page_number):
+    """
+    Vrši OCR nad slikom i vraća koordinate riječi.
+    """
+    try:
+        img = Image.open(image_path)
+
+```
+[... odrezano na 80 redova ...]
+
+
+── FILE: auto_setup.py  [6.1 KB]
+```py
+import logging
+import sys
+import time
+from typing import List, Union, Dict, Any, Optional
+from pathlib import Path
+
+# --------------------------------------------------------------------------------
+# 1. TQDM FALLBACK MEHANIZAM (Type-Safe Fix)
+# --------------------------------------------------------------------------------
+# Rješenje za Pylance "reportAssignmentType" grešku:
+# Definišemo Mock klasu pod drugim imenom (_MockTqdm), a zatim je dodijelimo.
+try:
+    from tqdm import tqdm
+except ImportError:
+    # Definišemo klasu sa donjom crtom da izbjegnemo konflikt imena tokom definicije
+    class _MockTqdm:
+        """
+        Mock klasa koja simulira tqdm ponašanje ako biblioteka nije instalirana.
+        """
+
+        def __init__(self, iterable=None, total=None, **kwargs):
+            self.iterable = iterable
+            self.total = total
+            self.n = 0
+            if iterable:
+                self.iterator = iter(iterable)
+            else:
+                self.iterator = None
+
+        def __iter__(self):
+            return self.iterator if self.iterator else iter([])
+
+        def __next__(self):
+            if self.iterator:
+                return next(self.iterator)
+            raise StopIteration
+
+        def update(self, n=1):
+            self.n += n
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc_value, traceback):
+            pass
+
+    # Eksplicitna dodjela uz ignorisanje strogog type check-a za ovu liniju
+    # Pylance ovdje griješi jer ne može predvidjeti runtime fallback, pa ga utišavamo.
+    tqdm = _MockTqdm  # type: ignore
+
+
+# --------------------------------------------------------------------------------
+# 2. KONFIGURACIJA LOGOVANJA
+# --------------------------------------------------------------------------------
+def setup_logging(log_file: str = "process_audit.log"):
+    logger = logging.getLogger("RobustProcessor")
+    logger.setLevel(logging.DEBUG)
+
+    if logger.hasHandlers():
+        logger.handlers.clear()
+
+    formatter = logging.Formatter(
+        "[%(asctime)s] [%(levelname)s] - %(message)s", datefmt="%H:%M:%S"
+    )
+
+    # File Handler
+    fh = logging.FileHandler(log_file, mode="w", encoding="utf-8")
+    fh.setLevel(logging.DEBUG)
+    fh.setFormatter(formatter)
+
+    # Console Handler
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.INFO)
+    ch.setFormatter(formatter)
+
+    logger.addHandler(fh)
+    logger.addHandler(ch)
+
+    return logger
+
+```
+[... odrezano na 80 redova ...]
+
+
+── FILE: bio.sql  [3.8 KB]
+```sql
+-- database: /path/to/database.db
+-- Pokretanje transakcije za integritet podataka
+BEGIN TRANSACTION;
+
+-- 1. Ažuriranje postojećih lekcija (zamjena WAITING_GENERATION)
+UPDATE lessons
+SET
+  content = '[{"title": "Što je zapravo biologija?", "content": "Zamisli biologiju kao najveći koncert na svijetu. Sve, od bakterije do plavog kita, svira u istom orkestru. Biologija je znanost koja proučava taj život, njegove zakone i kako svi ti instrumenti rade zajedno."}, {"title": "Znanstvena metoda", "content": "Da bismo razumjeli glazbu života, moramo imati metodu: opažanje, postavljanje pitanja, hipoteza i eksperiment. Bez toga, to je samo buka, a ne znanost."}]'
+WHERE
+  subject = 'Biologija'
+  AND topic LIKE '1.%';
+
+UPDATE lessons
+SET
+  content = '[{"title": "Elementi života", "content": "99% tvog tijela čine samo četiri elementa: C, H, O i N. To su tvoje osnovne žice na gitari. Bez njih nema melodije."}, {"title": "Voda i biopolimeri", "content": "Voda je pozornica na kojoj se sve događa. Ugljikohidrati su brza energija (ritam), lipidi su rezerve, a proteini su tehničari koji popravljaju opremu."}]'
+WHERE
+  subject = 'Biologija'
+  AND topic LIKE '2.%';
+
+UPDATE lessons
+SET
+  content = '[{"title": "DNA: Glavni bubnjar", "content": "DNA je nacrt za sve. Sastoji se od nukleotida (A, T, C, G). To su note koje određuju hoćeš li biti čovjek ili kaktus."}, {"title": "RNA i sinteza", "content": "RNA je prijenosnik poruke. Ona uzima note od DNA i nosi ih do ribosoma gdje se stvaraju proteini. To je proces od pisanja pjesme do izvedbe."}]'
+WHERE
+  subject = 'Biologija'
+  AND topic LIKE '3.%';
+
+UPDATE lessons
+SET
+  content = '[{"title": "Citologija - Građa stanice", "content": "Stanica je osnovna jedinica. Jezgra je mozak (dirigent), mitohondriji su elektrana (pojačala), a membrana je osiguranje na ulazu."}, {"title": "Razlike stanica", "content": "Biljne stanice imaju kloroplaste (solarne ploče) i stijenku, dok životinjske imaju centriole. Oboje su vrhunski opremljeni studiji za život."}]'
+WHERE
+  subject = 'Biologija'
+  AND topic LIKE '4.%';
+
+UPDATE lessons
+SET
+  content = '[{"title": "Mitoza i Mejoza", "content": "Mitoza je kopiranje - jedna stanica postane dvije identične (rast). Mejoza je stvaranje zvijezda - nastaju spolne stanice za novu generaciju."}, {"title": "Kontrola ciklusa", "content": "Kad kontrola zakaže, stanice se dijele bez prestanka. To je rak - koncert koji je izmakao kontroli i uništava pozornicu."}]'
+WHERE
+  subject = 'Biologija'
+  AND topic LIKE '5.%';
+
+-- 2. Ubacivanje novih lekcija (6 i 7) koje su nedostajale
+INSERT OR IGNORE INTO
+  lessons (subject, topic, content)
+VALUES
+  (
+    'Biologija',
+    '6. Razlika životinjskih carstava',
+    '[{"title": "Klasifikacija životinja", "content": "Životinje dijelimo prema simetriji i građi. Imaš beskralježnjake (bez kičme) i svitkovce (s kičmom)."}, {"title": "Evolucijski skok", "content": "Od spužvi koje samo sjede i filtriraju vodu, do sisavaca koji imaju najsloženije mozgove. Svako carstvo ima svoju solo dionicu."}]'
+  ),
+  (
+    'Biologija',
+    '7. Biosistematika',
+    '[{"title": "Red u kaosu", "content": "Sistematika razvrstava bića u grupe (Domena, Carstvo, Koljeno...). To je kao slaganje playliste po žanrovima."}, {"title": "Binarna nomenklatura", "content": "Svako biće ima dva imena (npr. Homo sapiens). Prvo je prezime (rod), drugo je ime (vrsta). Tako se znanstvenici razumiju širom svijeta."}]'
+  );
+
+-- 3. Dodavanje pitanja za nove lekcije (auditabilnost i praćenje progresa)
+INSERT INTO
+  questions (lesson_id, question, answer, options, q_type)
+SELECT
+  id,
+  'Što čini binarnu nomenklaturu?',
+  'Ime roda i ime vrste',
+  '["Ime roda i porodice", "Ime vrste i carstva", "Ime roda i ime vrste", "Samo latinsko ime"]',
+  'text'
+FROM
+  lessons
+WHERE
+  topic = '7. Biosistematika';
+
+COMMIT;
+```
+
+── FILE: config.py  [2.5 KB]
+```py
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+IZVJESTAJI_DIR = os.path.join(BASE_DIR, "izvjestaji")
+STATS_FILE = os.path.join(
+    BASE_DIR, "ucenik_stats.json"
+)  # Zadržano radi kompatibilnosti, ali se ne koristi
+GRADIVO_FILE = os.path.join(BASE_DIR, "gradivo.json")  # Zadržano
+ATLAS_DIR = os.path.join(BASE_DIR, "atlas_processed", "images")
+ATLAS_INDEX_FILE = os.path.join(BASE_DIR, "atlas_processed", "atlas_index.json")
+
+# --- AUTH ---
+NGROK_TOKEN = os.getenv("NGROK_AUTH_TOKEN")
+ACCESS_PASSWORD = os.getenv("ACCESS_PASSWORD", "komostas")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin")
+NGROK_DOMAIN = os.getenv("NGROK_DOMAIN", "")
+
+# --- AI ---
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+MODEL_ID = "models/gemma-3-27b-it"
+API_KEYS_LIST = [GOOGLE_API_KEY] if GOOGLE_API_KEY else []
+
+# --- GAMIFICATION ---
+RANKS = {
+    0: "PODRUMAR (LVL 1)",
+    500: "ULIČNI SVIRAČ (LVL 2)",
+    1200: "GAŽER (LVL 3)",
+    2500: "PREDGRUPA (LVL 4)",
+    5000: "STUDIO MUZIČAR (LVL 5)",
+    10000: "ROCK ZVIJEZDA (LVL 10)",
+    99999: "LEGENDA (MAX)",
+}
+
+MEDALS = {
+    "FIRST_BLOOD": {
+        "name": "Prvi Korak",
+        "icon": "👣",
+        "desc": "Završio prvu lekciju.",
+    },
+    "NERD": {"name": "Štreber", "icon": "🤓", "desc": "Riješio test sa 100% točnosti."},
+    "SURVIVOR": {
+        "name": "Preživjeli",
+        "icon": "🩹",
+        "desc": "Prošao test s točno 51%.",
+    },
+    "SPEED_DEMON": {
+        "name": "Brzi Gonzales",
+        "icon": "⚡",
+        "desc": "Riješio izuzetno brzo.",
+    },
+    # --- PROMJENA OVDJE: 3000 XP ---
+    "BOOKWORM": {"name": "Knjiški Moljac", "icon": "📚", "desc": "Skupio 3000 XP-a."},
+    "IRON_MAN": {
+        "name": "Iron Man",
+        "icon": "🤖",
+        "desc": "Nije izašao iz taba tijekom testa.",
+    },
+    # Negativne
+    "SPEEDING_TICKET": {
+        "name": "Kazna za Brzinu",
+        "icon": "🚓",
+        "desc": "Zabušavao i klikao bez čitanja.",
+        "type": "bad",
+    },
+    "BROKEN_STICK": {
+        "name": "Slomljena Palica",
+        "icon": "🥢",
+        "desc": "Pao test s manje od 20%.",
+        "type": "bad",
+    },
+    "SLEEPING_BEAUTY": {
+        "name": "Trnoružica",
+        "icon": "💤",
+        "desc": "Zaspao usred lekcije.",
+        "type": "bad",
+    },
+    "CHEATER": {
+```
+[... odrezano na 80 redova ...]
+
+
+── FILE: database.py  [4.7 KB]
+```py
+import sqlite3
+import json
+import os
+
+DB_FILE = "skola.db"
+
+
+def get_db():
+    conn = sqlite3.connect(DB_FILE)
+    conn.row_factory = sqlite3.Row
+    return conn
+
+
+def init_db():
+    conn = get_db()
+    c = conn.cursor()
+    c.execute(
+        """CREATE TABLE IF NOT EXISTS lessons (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        subject TEXT NOT NULL,
+        topic TEXT NOT NULL,
+        content TEXT,
+        UNIQUE(subject, topic)
+    )"""
+    )
+    c.execute(
+        """CREATE TABLE IF NOT EXISTS questions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        lesson_id INTEGER,
+        question TEXT,
+        answer TEXT,
+        options TEXT,
+        keywords TEXT,
+        q_type TEXT,
+        FOREIGN KEY(lesson_id) REFERENCES lessons(id)
+    )"""
+    )
+    c.execute(
+        """CREATE TABLE IF NOT EXISTS user_stats (
+        username TEXT PRIMARY KEY,
+        xp INTEGER DEFAULT 0,
+        lvl INTEGER DEFAULT 1,
+        medals TEXT,
+        completed_lessons TEXT
+    )"""
+    )
+    conn.commit()
+    conn.close()
+
+
+def get_lesson_content(subject, topic):
+    conn = get_db()
+    c = conn.cursor()
+    c.execute(
+        "SELECT id, content, image_path FROM lessons WHERE subject = ? AND topic = ?",
+        (subject, topic),
+    )
+    row = c.fetchone()
+
+    if row:
+        res = {
+            "id": row["id"],
+            "content": row["content"],
+            "image_path": row["image_path"],
+            "questions": [],
+        }
+        c.execute(
+            "SELECT question, answer, options, q_type FROM questions WHERE lesson_id = ?",
+            (row["id"],),
+        )
+        for q in c.fetchall():
+            res["questions"].append(
+                {
+                    "q": q["question"],
+                    "a": q["answer"],
+                    "o": json.loads(q["options"]) if q["options"] else [],
+                    "t": q["q_type"],
+                }
+            )
+        conn.close()
+```
+[... odrezano na 80 redova ...]
+
+
+── FILE: grader.py  [1.8 KB]
+```py
+import difflib
+import re
+
+
+def normalize_text(text):
+    """Čisti tekst od interpunkcije i pretvara u mala slova."""
+    if not text:
+        return ""
+    text = text.lower().strip()
+    # Ukloni sve osim slova i brojeva
+    text = re.sub(r"[^\w\s]", "", text)
+    return text
+
+
+def check_answer(user_input, correct_answer, keywords=[]):
+    """
+    Vraća (score, feedback_type).
+    Score: 0.0 do 1.0
+    Type: 'CORRECT', 'PARTIAL', 'WRONG'
+    """
+    u_norm = normalize_text(user_input)
+    c_norm = normalize_text(correct_answer)
+
+    if not u_norm:
+        return 0.0, "WRONG"
+
+    # 1. DIREKTNA SLIČNOST (SequenceMatcher)
+    # Ovo rješava tipfelere (npr. "akceleracija" vs "akcelercija")
+    similarity = difflib.SequenceMatcher(None, u_norm, c_norm).ratio()
+
+    # Ako je sličnost veća od 85%, to je točno bez obzira na ključne riječi
+    if similarity > 0.85:
+        return 1.0, "CORRECT"
+
+    # 2. PROVJERA KLJUČNIH RIJEČI (Kontekst)
+    if keywords:
+        found_keywords = 0
+        required_keywords = len(keywords)
+
+        for kw in keywords:
+            kw_norm = normalize_text(kw)
+            # Tražimo riječ u tekstu (pazimo da nije dio druge riječi ako je moguće)
+            if kw_norm in u_norm:
+                found_keywords += 1
+
+        # Izračunaj postotak pogođenih ključnih riječi
+        kw_score = found_keywords / required_keywords if required_keywords > 0 else 0
+
+        if kw_score >= 0.75:  # Ako ima 3 od 4 ključne riječi
+            return 1.0, "CORRECT"
+        elif kw_score >= 0.5:  # Ako ima pola ključnih riječi
+            return 0.5, "PARTIAL"
+
+    # 3. FALLBACK ZA KRATKE ODGOVORE
+    # Ako je odgovor točan "5", a on napiše "5 metara", keyword check bi mogao pasti ako nema keyworda.
+    if c_norm in u_norm:
+        return 1.0, "CORRECT"
+
+    return 0.0, "WRONG"
+```
+
+── FILE: gradivo.json  [6.0 KB]
+```json
+{
+    "Matematika": {
+        "L1: Skupovi brojeva": "Skupovi prirodnih (N), cijelih (Z), racionalnih (Q) i realnih (R) brojeva. Definicije, primjeri i grafički prikaz skupova. Operacije u skupu R: zbrajanje, oduzimanje, množenje, dijeljenje. Svojstva brojeva: komutativnost, asocijativnost, distributivnost. Primjena skupova u svakodnevnom Žršljivu.",
+        "L2: Algebarski izrazi": "Kvadriranje binoma (a±b)² = a² ± 2ab + b². Razlika kvadrata a² - b² = (a - b)(a + b). Kub binoma i razlika kubova. Svojstva potencija i korijena u algebarskim izrazima. Primjeri pojednostavljanja izraza i rješavanja zadataka.",
+        "L3: Potencije i korijeni": "Pravila za potencije istih baze: a^n * a^m = a^(n + m). Potenciranje potencije (a^n)^m = a^(n*m). N-ti korijeni, svojstva i primjena. Račanje s potencijama i korijenima, racionalizacija nazivnika.",
+        "L4: Linearne jednadže": "Rješavanje jednadže oblika ax + b = 0. Linearne nejednadže i intervali rješenja na brojevnom pravcu. Grafički prikaz linearnih funkcija. Primjeri iz prakse i zadaci za vježbu.",
+        "L5: Sistemi jednadže": "Sustavi dvije linearne jednadže s dvije nepoznanice. Metode supstitucije i suprotnih koeficijenata. Grafičko rješavanje sustava. Primjeri iz prakse i zadaci za vježbu."
+    },
+    "Kemija": {
+        "L1: Struktura materije": "Građa atoma (proton, neutron, elektron), atomski broj i maseni broj. Elektronski omotač, ljuske i podljuske. Periodni sustav elemenata (PSE), periodičnost svojstava. Izotopi i ionske vrste.",
+        "L2: Kemijske veze": "Ionska, kovalentna i vodikova veza. Objašnjenje nastanka i svojstva svake vrste veze. Polarnost molekula, međumolekulske sile. Utjecaj veze na fizikalna i kemijska svojstva tvari.",
+        "L3: Stehiometrija": "Mol, molarna masa (M=m/n), Avogadrov broj. Izračanje količine tvari, masu, volumen plinova. Primjeri stehiometrijskih izračanja u kemijskim reakcijama.",
+        "L4: Otopine": "Maseni udio, koncentracija otopine (mol/L), razrjeđivanje i zasičenje. Topljivost krutine u vodi, faktori koji utječu na topljivost. Priprema otopina i izračanje koncentracije."
+    },
+    "Anatomija": {
+        "L1: Osteologija": "Sastav i građa kostiju: kompaktna i spužvasta tvar, pokosnica. Kosti glave (lubanja), trupe (kralježenica, rebra, prsna kost) i ekstremiteta (ruke, noge). Uloga kostiju u pokretanju i zaštiti organa.",
+        "L2: Miologija": "Vrste mišičaka: poprečno-prugasti, glatki i srčan. Mehanika kontrakcije mišičaka, osnovni pojmovi (aktin, miozin, ATP). Glavni mišičaki tijela i njihova funkcija. Primjeri pokreta i važnost vježbanja.",
+        "L3: Ravnine i smjerovi": "Sagitalna, frontalna i horizontalna ravnina. Orijentacija u anatomiji: medijalno, lateralno, proksimalno, distalno, anteriorno, posteriorno. Primjeri upotrebe ravnina i smjerova u opisivanju položaja organa."
+    },
+    "Osnove zdravstvene njege": {
+        "L1: Povijest i Etika": "Florence Nightingale i razvoj sestrinstva. Sestrinska dokumentacija, važnost vođenja bilješki. Etična principa: povjerljivost, poštovanje, odgovornost. Primjeri etičkih dilema u praksi.",
+        "L2: Higijena i Asepsa": "Dezinfekcija i sterilizacija: metode, sredstva i važnost. Pravilno pranje i ribanje ruku, osobna higijena zdravstvenih djelatnika. Prevencija infekcija u zdravstvenim ustanovama.",
+        "L3: Vitalni znakovi": "Mjerenje pulsa, krvnog tlaka, tjelesne temperature i disanja. Normalne vrijednosti i odstupanja. Značaj praćenja vitalnih znakova za procjenu zdravstvenog stanja pacijenta."
+    },
+    "Biologija": {
+        "L1: Citologija": "Eukariotska stanica: građa i funkcija organela (jezgra, mitohondrij, ribosom, endoplazmatski retikulum, Golgijev aparat, lizosom). Razlika između biljne i životinjske stanice. Uloga stanica u organizmu.",
+        "L2: Biomolekule": "Struktura DNA, proteini, lipidi i ugljikohidrati. Uloga biomolekula u staničnoj procesima. Primjeri iz svakodnevnog Žršljivu.",
+        "L3: Stanični ciklus": "Faze mitoze (profaza, metafaza, anafaza, telofaza) i mejoza. Kontrola staničnog ciklusa, važnost diobe za rast i obnovu organizma. Poremećaji staničnog ciklusa (rak).",
+        "L4: Biljne i životinjske stanice": "Usporedna analiza ultrastrukture: stanična stijenka, plastidi (kloroplasti, kromoplasti, leukoplasti) i velike vakuole kod biljaka naspram centriola i lizosoma kod životinja. Autotrofni i heterotrofni metabolizam. Turgorski tlak i uloga plazmodezmi u komunikaciji biljnih stanica.",
+        "L5: Gljive": "Biologija i citologija gljiva: hife, micelij i stanična stijenka od hitina. Načini prehrane (saprofiti, paraziti, simbionti). Razmnožavanje sporama i uloga gljiva u kruženju tvari (razlagači). Važnost kvasaca u biotehnologiji i primjena u prehrambenoj industriji.",
+        "L6: Razlika životinjskih carstava": "Klasifikacija metazoa na temelju tjelesne simetrije (radijalna i bilateralna), broja zametnih listića (diploblasti i triploblasti) i tipa tjelesne šupljine (celom). Razlikovanje beskralježnjaka (spužve, žarnjaci, člankonošci) i svitkovaca (ribe, vodozemci, gmazovi, ptice, sisavci).",
+        "L7: Biosistematika": "Principi biološke klasifikacije i taksonomije. Hijerarhijske kategorije (vrsta, rod, porodica, red, razred, koljeno, carstvo, domena). Binarna nomenklatura Carla Linnéa. Filogenetska stabla i korištenje molekularnih metoda (DNA sekvenciranje) u suvremenoj sistematici."
+    },
+    "Latinski jezik": {
+        "L1: Osnove izgovora": "Medicinski izgovor i naglasak. Suglasnici i diftonzi. Pravila čitanja latinskih riječi, naglašavanje slogova. Primjeri medicinskih termina.",
+        "L2: I i II deklinacija": "Imenice ženskog roda na -a (I deklinacija) i muškog/srednjeg na -us, -um (II deklinacija). Pravila deklinacije, primjeri u medicinskoj terminologiji. Vježbe prepoznavanja oblika.",
+        "L3: Medicinski nazivi": "Anatomsko nazivlje organa, kostiju i mišića. Latinski korijeni u medicinskim izrazima. Primjeri prevođenja i upotrebe u svakodnevnoj medicinskoj praksi."
+    }
+}
+```
+
+── FILE: project_snapshot.py  [10.7 KB]
+```py
+#!/usr/bin/env python3
+"""
+project_snapshot.py — Generira kompaktan AI-kontekst snapshot projekta.
+
+Upotreba:
+    python project_snapshot.py [root_dir] [opcije]
+
+Opcije:
+    --out FILE        Izlazna datoteka (default: snapshot.txt)
+    --max-lines N     Maks. redova po datoteci (default: 80)
+    --max-kb N        Preskoči datoteke veće od N KB (default: 100)
+    --no-tree         Ne prikazuj stablo direktorija
+    --ext a,b,c       Prikaži samo ove ekstenzije (npr. py,js,html)
+    --skip-dirs d,e   Dodatni direktoriji za preskakanje
+    --stats           Prikaži statistiku na kraju
+    --help            Ova poruka
+
+Primjer:
+    python project_snapshot.py ~/booklyfi --out ctx.txt --max-lines 60
+"""
+
+import os
+import sys
+import argparse
+import textwrap
+from pathlib import Path
+from datetime import datetime
+
+# ── Defaultni skip-listi ────────────────────────────────────────────────────
+SKIP_DIRS = {
+    ".git",
+    "__pycache__",
+    "node_modules",
+    ".venv",
+    "venv",
+    "env",
+    ".mypy_cache",
+    ".pytest_cache",
+    "dist",
+    "build",
+    "eggs",
+    ".eggs",
+    "*.egg-info",
+    ".tox",
+    "htmlcov",
+    ".coverage",
+    "site-packages",
+    "migrations",
+    ".idea",
+    ".vscode",
+    "tmp",
+    "temp",
+    "logs",
+    "log",
+    ".cache",
+    "uploads",
+    "instance",
+}
+
+SKIP_EXTENSIONS = {
+    # Binaries / media
+    ".pyc",
+    ".pyo",
+    ".pyd",
+    ".so",
+    ".dll",
+    ".dylib",
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".gif",
+    ".bmp",
+    ".ico",
+    ".svg",
+    ".webp",
+    ".mp3",
+    ".mp4",
+    ".wav",
+    ".ogg",
+    ".avi",
+```
+[... odrezano na 80 redova ...]
+
+
+── FILE: restore_structure.py  [0.4 KB]
+```py
+import sqlite3
+
+
+def upgrade():
+    conn = sqlite3.connect("skola.db")
+    c = conn.cursor()
+    try:
+        c.execute("ALTER TABLE lessons ADD COLUMN image_path TEXT")
+        conn.commit()
+        print("✅ Kolona 'image_path' uspješno dodana u bazu!")
+    except sqlite3.OperationalError:
+        print("ℹ️ Kolona 'image_path' već postoji.")
+    conn.close()
+
+
+if __name__ == "__main__":
+    upgrade()
+```
+
+── FILE: test.py  [20.5 KB]
+```py
+# test.py - FINALNA VERZIJA (Fixed Pylance Errors)
+import os
+import threading
+import time
+import json
+import logging
+import sqlite3
+import re
+from dotenv import load_dotenv
+from pyngrok import ngrok
+from flask import Flask, render_template, request, jsonify, send_from_directory
+from google import genai
+
+# Učitavanje konfiguracije
+from config import (
+    BASE_DIR,
+    DEFAULT_GRADIVO,
+    IZVJESTAJI_DIR,
+    NGROK_DOMAIN,
+    NGROK_TOKEN,
+    STATS_FILE,
+    GRADIVO_FILE,
+    ATLAS_DIR,
+    ATLAS_INDEX_FILE,
+    MODEL_ID,
+    GOOGLE_API_KEY,
+    RANKS,
+    MEDALS,
+)
+
+from utils import extract_json, find_atlas_image, requires_auth
+
+# Importamo funkcije za lekcije iz baze (jer one rade),
+# ali STATS funkcije ćemo definirati OVDJE da Pylance ne plače.
+from database import get_lesson_content, save_lesson_data
+
+# --- KONFIGURACIJA ---
+load_dotenv()
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
+logger = logging.getLogger("werkzeug")
+logger.setLevel(logging.ERROR)
+
+DB_FILE = "skola.db"
+
+# --- PROMPTOVI ---
+PROMPT_TEACHER = """
+ULOGA: Ti si stari, cinični roker i instruktor bubnjeva. Tvoj učenik Dani svira bubnjeve u bendu, ali mora naučiti ovo gradivo za školu.
+TON: Koristi sleng glazbenika, usporedbe s bubnjevima. Budi kratak, jasan i "cool".
+TEMA: {l} ({p}). INFO: {info}.
+ZADATAK: Podijeli lekciju na 3 logična dijela (modula). Dodaj 5 blic pitanja.
+VRATI JSON: {{ "modules": [{{ "title": "...", "content": "..." }}], "cards": [["Pitanje", "Odgovor"]] }}
+"""
+
+PROMPT_EXAMINER = """
+ULOGA: Ti si vrlo strog profesor. PREDMET: {p}, TEMA: {l}
+ZADATAK: Napravi test od 20 pitanja (random radio, text, tačno/netačno, a,b,c,sve navedeno, dopuni rečenicu, identifikuj).
+VRATI JSON LISTU: [ {{ "q": "...", "t": "radio", "o": ["A","B"], "a": "A" }}, {{ "q": "...", "t": "text", "a": "..." }} ]
+"""
+
+PROMPT_GRADER = """
+ULOGA: Ti si iskusni i pravedni profesor. Tvoj cilj je ocijeniti RAZUMIJEVANJE gradiva, a ne sposobnost memoriziranja točnih riječi.
+
+ULAZNI PODACI:
+- Pitanje: {q}
+- Točan odgovor (referenca): {a}
+- Učenikov odgovor: {u}
+
+PRAVILA OCJENJIVANJA (PAŽLJIVO PROČITAJ):
+1. SEMANTIKA IZNAD SINTAKSE: Odgovor NE MORA biti identičan referenci. Traži suštinsko značenje. Ako je učenik objasnio točan koncept svojim riječima, to je TOČNO.
+2. SINONIMI I JEZIK: Priznaj sinonime, stručne termine (npr. latinski vs hrvatski), dijalekte ili opisna objašnjenja ako su točna.
+3. TIPFELERI: Zanemari gramatičke greške i tipfelere (npr. "akcelercija" umjesto "akceleracija") ako je jasno što je učenik mislio.
+4. ESEJSKI ODGOVORI: Ako je odgovor duži tekst, traži ključne informacije iz reference. Ako su prisutne, daj bodove bez obzira na "višak" teksta.
+
+BODOVANJE (Strogo 0.0, 0.5 ili 1.0):
+- 1.0 (TOČNO): Suština je pogođena. Koncept je jasan.
+- 0.5 (DJELOMIČNO): Spomenut je dio točnog odgovora, ali je nepotpun ili malo neprecizan.
+- 0.0 (NETOČNO): Odgovor je faktografski pogrešan ili nema veze s pitanjem.
+
+```
+[... odrezano na 80 redova ...]
+
+
+── FILE: ucenik_stats.json  [0.1 KB]
+```json
+{"xp": 0, "lvl": 1, "history": [], "medals": [], "completed_lessons": []}
+```
+
+── FILE: utils.py  [3.4 KB]
+```py
+# utils.py
+import os
+import json
+import logging
+import re
+
+from functools import wraps
+
+from flask import request, jsonify
+
+from config import ACCESS_PASSWORD, ADMIN_PASSWORD, ATLAS_DIR
+
+
+# utils.py (samo funkcija requires_auth)
+
+
+def requires_auth(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        d = request.json or {}
+        user = d.get("user")
+        pw = d.get("pw")
+
+        # Dohvati IP adresu s koje dolazi zahtjev
+        client_ip = request.remote_addr
+
+        # 1. LOCALHOST BYPASS (Ako si doma na svom kompu)
+        if client_ip in ["127.0.0.1", "::1"]:
+            # Ako si lokalno i kažeš da si admin, vjerujemo ti bez šifre
+            if user == "admin":
+                return f(*args, **kwargs)
+            # Ako si lokalno a nisi admin, automatski si student
+            return jsonify({"ok": True, "role": "student", "user": user})
+
+        # 2. STANDARDNA PROVJERA (Ako pristupaš preko Ngroka/Interneta)
+        if user == "admin" and pw == ADMIN_PASSWORD:
+            return f(*args, **kwargs)
+        elif pw == ACCESS_PASSWORD:
+            return jsonify({"ok": True, "role": "student", "user": user})
+
+        return jsonify({"ok": False, "role": "student", "msg": "Pristup odbijen"})
+
+    return decorated_function
+
+
+def extract_json(text):
+    try:
+        match = re.search(r"```json\s*(.*?)\s*```", text, re.DOTALL)
+        if match:
+            return json.loads(match.group(1))
+        match = re.search(r"\{.*\}", text, re.DOTALL)
+        if match:
+            return json.loads(match.group(0))
+    except json.JSONDecodeError:
+        logging.warning("Failed to decode JSON from text")
+    return None
+
+
+def find_atlas_image(lesson_name, atlas_index):
+    # 1. Pripremi ključne riječi (izbaci "L1:", "lekcija", kratke riječi)
+    clean_name = re.sub(r"L\d+:?", "", lesson_name).strip()
+    keywords = [w.lower() for w in re.findall(r"\w+", clean_name) if len(w) > 3]
+
+    if not keywords:
+        logging.warning(f"Atlas search: Nema ključnih riječi za '{lesson_name}'")
+        return None
+
+    logging.info(f"Atlas search keywords: {keywords}")
+
+    best_img = None
+    max_score = 0
+
+    for item in atlas_index:
+        if not isinstance(item, dict):
+            continue
+
+        # Pojam iz atlasa
+        term = str(item.get("term", "")).lower()
+        img = item.get("image_rel_path", "")
+
+```
+[... odrezano na 80 redova ...]
+
+
+── FILE: atlas_processed\atlas_index.json  [14897.2 KB]
+```json
+[PRESKOČENO — veličina 14897 KB > 100 KB]
+```
+
+── FILE: izvjestaji\LOG_Dani_20260212_105853.txt  [0.6 KB]
+```txt
+{
+    "student": "Dani",
+    "score_percent": 62.5,
+    "telemetry": [
+        {
+            "time": "10:49:03 AM",
+            "timestamp": 1770889743550,
+            "type": "INFO",
+            "msg": "Start TEST",
+            "detail": "Biologija - ALL"
+        },
+        {
+            "time": "10:49:51 AM",
+            "timestamp": 1770889791493,
+            "type": "WARNING",
+            "msg": "Neaktivnost",
+            "detail": "Korisnik neaktivan 30s"
+        }
+    ],
+    "mode": "TEST",
+    "duration": 288,
+    "word_count": 0,
+    "subject": "Biologija",
+    "lesson": "ALL",
+    "xp_gained": 312,
+    "rushed": false
+}
+```
+
+── FILE: izvjestaji\LOG_Dani_20260225_210033.txt  [0.5 KB]
+```txt
+{
+    "student": "Dani",
+    "score_percent": 100,
+    "telemetry": [
+        {
+            "time": "8:59:52 PM",
+            "timestamp": 1772049592355,
+            "type": "INFO",
+            "msg": "Start LEARN",
+            "detail": "Biologija - 6. Razlika životinjskih carstava"
+        }
+    ],
+    "mode": "LEARN",
+    "duration": 12.169,
+    "word_count": 34,
+    "subject": "Biologija",
+    "lesson": "6. Razlika životinjskih carstava",
+    "rushed": false,
+    "xp_gained": 150
+}
+```
+
+── FILE: izvjestaji\LOG_Dani_20260225_210152.txt  [0.5 KB]
+```txt
+{
+    "student": "Dani",
+    "score_percent": 100,
+    "telemetry": [
+        {
+            "time": "9:01:07 PM",
+            "timestamp": 1772049667820,
+            "type": "INFO",
+            "msg": "Start LEARN",
+            "detail": "Biologija - 4. Stanična biologija (Citologija)"
+        }
+    ],
+    "mode": "LEARN",
+    "duration": 42.567,
+    "word_count": 37,
+    "subject": "Biologija",
+    "lesson": "4. Stanična biologija (Citologija)",
+    "rushed": false,
+    "xp_gained": 150
+}
+```
+
+── FILE: izvjestaji\LOG_Dani_20260225_210630.txt  [0.7 KB]
+```txt
+{
+    "student": "Dani",
+    "score_percent": 100,
+    "telemetry": [
+        {
+            "time": "9:02:07 PM",
+            "timestamp": 1772049727349,
+            "type": "INFO",
+            "msg": "Start LEARN",
+            "detail": "Biologija - 7. Biosistematika"
+        },
+        {
+            "time": "9:03:24 PM",
+            "timestamp": 1772049804357,
+            "type": "WARNING",
+            "msg": "Neaktivnost",
+            "detail": "Korisnik neaktivan duže od 60s"
+        }
+    ],
+    "mode": "LEARN",
+    "duration": 255.534,
+    "word_count": 37,
+    "subject": "Biologija",
+    "lesson": "7. Biosistematika",
+    "rushed": false,
+    "xp_gained": 150
+}
+```
+
+── FILE: izvjestaji\LOG_Dani_20260225_221046.txt  [0.9 KB]
+```txt
+{
+    "student": "Dani",
+    "score_percent": 100,
+    "telemetry": [
+        {
+            "time": "9:06:50 PM",
+            "timestamp": 1772050010400,
+            "type": "INFO",
+            "msg": "Start LEARN",
+            "detail": "Biologija - 3. Nukleinske kiseline"
+        },
+        {
+            "time": "9:07:50 PM",
+            "timestamp": 1772050070405,
+            "type": "WARNING",
+            "msg": "Neaktivnost",
+            "detail": "Korisnik neaktivan duže od 60s"
+        },
+        {
+            "time": "9:10:23 PM",
+            "timestamp": 1772050223408,
+            "type": "WARNING",
+            "msg": "Neaktivnost",
+            "detail": "Korisnik neaktivan duže od 60s"
+        }
+    ],
+    "mode": "LEARN",
+    "duration": 3823.217,
+    "word_count": 50,
+    "subject": "Biologija",
+    "lesson": "3. Nukleinske kiseline",
+    "rushed": false,
+    "xp_gained": 150
+}
+```
+
+── FILE: izvjestaji\LOG_Dani_20260225_221711.txt  [0.4 KB]
+```txt
+{
+    "student": "Dani",
+    "score_percent": 76.25,
+    "telemetry": [
+        {
+            "time": "10:11:13 PM",
+            "timestamp": 1772053873525,
+            "type": "INFO",
+            "msg": "Start TEST",
+            "detail": "Biologija - ALL"
+        }
+    ],
+    "mode": "TEST",
+    "duration": 223,
+    "word_count": 0,
+    "subject": "Biologija",
+    "lesson": "ALL",
+    "rushed": false,
+    "xp_gained": 381
+}
+```
+
+── FILE: static\css\style.css  [23.5 KB]
+```css
+/* --- FONTS --- */
+body {
+  font-family: "Inter", sans-serif;
+}
+
+pre,
+code,
+.mono {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* --- VARIABLES --- */
+:root {
+  --bg: #09090b;
+  --sidebar: #18181b;
+  --card: #27272a;
+  --text: #e4e4e7;
+  --text-muted: #a1a1aa;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --border: #3f3f46;
+  --radius: 12px;
+  --shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode {
+  --bg: #f4f4f5;
+  --sidebar: #ffffff;
+  --card: #ffffff;
+  --text: #18181b;
+  --text-muted: #71717a;
+  --border: #e4e4e7;
+}
+
+/* --- RESET & LAYOUT --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+
+/* --- SCROLLBAR --- */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* --- SIDEBAR --- */
+#sidebar {
+  width: 280px;
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  transition: transform 0.3s ease;
+  z-index: 100;
+```
+[... odrezano na 80 redova ...]
+
+
+── FILE: static\js\script.js  [29.3 KB]
+```js
+// static/js/script.js
+
+// --- GLOBALNE VARIJABLE ---
+let USER = "", CUR_P = "", CUR_L = "", CUR_MODE = "", LOGIN_TIME = 0;
+let START_TIME = 0, QS = [], CUR_Q = 0, SCORE = 0;
+let SERVER_DATA = {}, MODULES_DATA = null, CUR_MODULE_IDX = 0;
+
+// TELEMETRIJA I IDLE DETECTOR
+let TELEMETRY = [];
+let LAST_MOUSE_MOVE = Date.now();
+let idleSeconds = 0;
+let idleInterval;
+let hasWarnedIdle = false;
+
+// TIMING
+let MODULE_START_TIME = 0, TOTAL_DURATION = 0, LESSON_WORD_COUNT = 0;
+let QUESTION_TIMER = null, TIME_LEFT = 0;
+const TIME_PER_QUESTION = 45;
+
+const MAX_RETRIES = 5;
+const RETRY_DELAY = 3000;
+
+const MEDAL_ICONS = {
+  "FIRST_BLOOD": '<i class="fa-solid fa-shoe-prints medal-icon"></i>',
+  "NERD": '<i class="fa-solid fa-glasses medal-icon"></i>',
+  "SURVIVOR": '<i class="fa-solid fa-kit-medical medal-icon"></i>',
+  "SPEED_DEMON": '<i class="fa-solid fa-bolt medal-icon"></i>',
+  "BOOKWORM": '<i class="fa-solid fa-book-open medal-icon"></i>',
+  "IRON_MAN": '<i class="fa-solid fa-robot medal-icon"></i>',
+  "SPEEDING_TICKET": '<i class="fa-solid fa-file-invoice-dollar medal-icon"></i>',
+  "BROKEN_STICK": '<i class="fa-solid fa-crutch medal-icon"></i>',
+  "SLEEPING_BEAUTY": '<i class="fa-solid fa-bed medal-icon"></i>',
+  "CHEATER": '<i class="fa-solid fa-user-secret medal-icon"></i>'
+};
+
+const MEDAL_DETAILS = {
+  "FIRST_BLOOD": { name: "Prvi Korak", desc: "Završio prvu lekciju.", type: "good" },
+  "NERD": { name: "Štreber", desc: "100% na testu.", type: "good" },
+  "SURVIVOR": { name: "Preživjeli", desc: "Jedva prošao.", type: "good" },
+  "SPEED_DEMON": { name: "Brzi Gonzales", desc: "Brzo rješavanje.", type: "good" },
+  "BOOKWORM": { name: "Knjiški Moljac", desc: "3000 XP.", type: "good" },
+  "IRON_MAN": { name: "Iron Man", desc: "Bez izlaska iz taba.", type: "good" },
+  "SPEEDING_TICKET": { name: "Kazna za Brzinu", desc: "Klikanje bez čitanja!", type: "bad" },
+  "BROKEN_STICK": { name: "Slomljena Palica", desc: "Manje od 20% na testu.", type: "bad" },
+  "SLEEPING_BEAUTY": { name: "Trnoružica", desc: "Zaspao za računalom.", type: "bad" },
+  "CHEATER": { name: "Prevarant", desc: "Izašao iz taba.", type: "bad" }
+};
+
+function resetIdle() {
+  idleSeconds = 0;
+  hasWarnedIdle = false;
+  LAST_MOUSE_MOVE = Date.now();
+}
+document.addEventListener("mousemove", resetIdle);
+document.addEventListener("keypress", resetIdle);
+document.addEventListener("click", resetIdle);
+document.addEventListener("scroll", resetIdle);
+
+function logEvent(type, msg, detail = "") {
+  TELEMETRY.push({
+    time: new Date().toLocaleTimeString(),
+    timestamp: Date.now(),
+    type: type, msg: msg, detail: detail
+  });
+}
+
+function initTelemetry(mode) {
+  TELEMETRY = [];
+  START_TIME = Date.now();
+  resetIdle();
+  clearInterval(idleInterval);
+
+  logEvent("INFO", "Start " + mode, `${CUR_P} - ${CUR_L}`);
+
+  idleInterval = setInterval(() => {
+    if (CUR_MODE === "") return;
+    idleSeconds++;
+    if (idleSeconds >= 60 && !hasWarnedIdle) {
+      logEvent("WARNING", "Neaktivnost", "Korisnik neaktivan duže od 60s");
+      hasWarnedIdle = true;
+```
+[... odrezano na 80 redova ...]
+
+
+── FILE: templates\index.html  [10.6 KB]
+```html
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DANIJEVA E-ŠKOLICA | V99</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="cheat-overlay" style="display: none;">
+        <div class="glitch-wrapper">
+            <h1 class="glitch">PREKRŠAJ!</h1>
+        </div>
+        <p>ALO DANI! NEMA VARANJA! GLEDAM TE!</p>
+    </div>
+
+    <div id="doom-modal"
+        style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20,0,0,0.98); z-index: 99999; flex-direction:column; justify-content:center; align-items:center; padding: 20px;">
+        <div class="doom-box"
+            style="background: #000; border: 2px solid #ef4444; color: #fff; padding: 40px; max-width: 600px; width: 100%; text-align: left; box-shadow: 0 0 50px rgba(239,68,68,0.5); font-size: 1.2rem; line-height: 1.6; border-radius: 12px;">
+            <h1 style="color:#ef4444; text-align:center; margin-top:0;">⚠️ IZVJEŠTAJ SUDNJEG DANA ⚠️</h1>
+            <div id="doom-content"></div>
+            <button class="btn btn-red" style="margin-top:30px; width:100%; border-color:#ef4444; color:#ef4444;"
+                onclick="document.getElementById('doom-modal').style.display='none'">RAZUMIO SAM (ZATVORI)</button>
+        </div>
+    </div>
+
+    <div id="img-modal" onclick="this.style.display='none'" style="display: none;">
+        <div class="close-modal-btn">ZATVORI</div>
+        <img id="img-zoom-target">
+    </div>
+
+    <div id="log-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>LOG</h3><button class="btn btn-red"
+                    onclick="document.getElementById('log-modal').style.display='none'">X</button>
+            </div>
+            <pre id="log-content"></pre>
+        </div>
+    </div>
+
+    <div id="pse-modal" style="display: none;">
+        <div class="modal-header-pse">
+            <h2>TABLICA STRAVE</h2><button class="btn btn-red"
+                onclick="document.getElementById('pse-modal').style.display='none'">X</button>
+        </div>
+        <div id="pse-info-panel">
+            <h1 id="pi-sym">H</h1>
+            <h3 id="pi-name">Vodik</h3>
+            <p id="pi-data">Masa: 1.008</p>
+            <div id="pi-cat">Nemetal</div>
+        </div>
+        <div id="pse-grid-container" class="pse-wrapper"></div>
+    </div>
+    <div id="trophy-modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2>🏆 TROFEJNA SOBA</h2>
+                <button class="btn btn-red"
+                    onclick="document.getElementById('trophy-modal').style.display='none'">X</button>
+            </div>
+            <div class="trophy-grid">
+                <div class="trophy-section">
+                    <h3 style="color:var(--success);">KUĆA SLAVNIH</h3>
+                    <div id="trophy-list-good" class="trophy-list"></div>
+                </div>
+                <div class="trophy-section">
+                    <h3 style="color:var(--danger);">ZID SRAMA</h3>
+                    <div id="trophy-list-bad" class="trophy-list"></div>
+                </div>
+            </div>
+        </div>
+```
+[... odrezano na 80 redova ...]

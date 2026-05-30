@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="hr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DANIJEVA E-ŠKOLICA | V99</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="cheat-overlay" style="display: none;">
+        <div class="glitch-wrapper">
+            <h1 class="glitch">PREKRŠAJ!</h1>
+        </div>
+        <p>ALO DANI! NEMA VARANJA! GLEDAM TE!</p>
+    </div>
+
+    <div id="doom-modal"
+        style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20,0,0,0.98); z-index: 99999; flex-direction:column; justify-content:center; align-items:center; padding: 20px;">
+        <div class="doom-box"
+            style="background: #000; border: 2px solid #ef4444; color: #fff; padding: 40px; max-width: 600px; width: 100%; text-align: left; box-shadow: 0 0 50px rgba(239,68,68,0.5); font-size: 1.2rem; line-height: 1.6; border-radius: 12px;">
+            <h1 style="color:#ef4444; text-align:center; margin-top:0;">⚠️ IZVJEŠTAJ SUDNJEG DANA ⚠️</h1>
+            <div id="doom-content"></div>
+            <button class="btn btn-red" style="margin-top:30px; width:100%; border-color:#ef4444; color:#ef4444;"
+                onclick="document.getElementById('doom-modal').style.display='none'">RAZUMIO SAM (ZATVORI)</button>
+        </div>
+    </div>
+
+    <div id="img-modal" onclick="this.style.display='none'" style="display: none;">
+        <div class="close-modal-btn">ZATVORI</div>
+        <img id="img-zoom-target">
+    </div>
+
+    <div id="log-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>LOG</h3><button class="btn btn-red"
+                    onclick="document.getElementById('log-modal').style.display='none'">X</button>
+            </div>
+            <pre id="log-content"></pre>
+        </div>
+    </div>
+
+    <div id="pse-modal" style="display: none;">
+        <div class="modal-header-pse">
+            <h2>TABLICA STRAVE</h2><button class="btn btn-red"
+                onclick="document.getElementById('pse-modal').style.display='none'">X</button>
+        </div>
+        <div id="pse-info-panel">
+            <h1 id="pi-sym">H</h1>
+            <h3 id="pi-name">Vodik</h3>
+            <p id="pi-data">Masa: 1.008</p>
+            <div id="pi-cat">Nemetal</div>
+        </div>
+        <div id="pse-grid-container" class="pse-wrapper"></div>
+    </div>
+    <div id="trophy-modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h2>🏆 TROFEJNA SOBA</h2>
+                <button class="btn btn-red"
+                    onclick="document.getElementById('trophy-modal').style.display='none'">X</button>
+            </div>
+            <div class="trophy-grid">
+                <div class="trophy-section">
+                    <h3 style="color:var(--success);">KUĆA SLAVNIH</h3>
+                    <div id="trophy-list-good" class="trophy-list"></div>
+                </div>
+                <div class="trophy-section">
+                    <h3 style="color:var(--danger);">ZID SRAMA</h3>
+                    <div id="trophy-list-bad" class="trophy-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobile-toggle" onclick="toggleSidebar()">☰</div>
+
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>DANIJEVA<br>E-ŠKOLICA</h2>
+            <div class="version-tag">v2.1 SECURE</div>
+        </div>
+
+        <div id="xp-panel">
+            <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+                <div id="xp-lvl" style="font-size: 2rem; font-weight: 800; color: var(--primary);">1</div>
+                <div id="xp-rank"
+                    style="font-size: 0.7rem; color: var(--text-muted); text-transform:uppercase; margin-bottom:5px;">
+                    PODRUMAR</div>
+            </div>
+            <div class="xp-bar">
+                <div class="xp-fill" style="width: 0%"></div>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:5px; font-size:0.8rem; cursor:pointer;"
+                onclick="openTrophyRoom()">
+                <span id="xp-points">0 XP</span>
+                <span id="user-badges" title="Klikni za detalje"></span>
+            </div>
+        </div>
+
+        <div class="sidebar-menu">
+            <button class="btn btn-ghost" onclick="toggleTheme()">💡 Tema</button>
+            <button class="btn btn-ghost" onclick="toggleFloatingCalc()">🧮 Digitron</button>
+            <button class="btn btn-ghost" onclick="openPSE()">🧪 Periodni</button>
+        </div>
+        <button class="btn btn-logout" onclick="handleLogout()">🚪 BJEŽI DOK MOŽEŠ</button>
+    </div>
+
+    <div id="main">
+        <div id="content-scroll">
+
+            <div id="view-login" class="screen active">
+                <div class="login-container">
+                    <div class="login-card">
+                        <h1>ULAZ</h1>
+                        <div class="input-group"><input type="text" id="login-user"
+                                placeholder=" "><label>Korisnik</label></div>
+                        <div class="input-group"><input type="password" id="login-pass"
+                                placeholder=" "><label>Lozinka</label></div>
+                        <button class="btn btn-primary btn-lg" onclick="doLogin()">KRENI</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-admin" class="screen">
+                <div class="screen-header">
+                    <h2>ADMIN</h2><button class="btn" onclick="location.reload()">Izlaz</button>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>JSON</h3><textarea id="editor-area"></textarea><button class="btn btn-primary"
+                            onclick="saveAdminData()">Spremi</button>
+                    </div>
+                    <div class="card">
+                        <h3>Akcije</h3><button class="btn" onclick="adminLoadLogs()">Logovi</button>
+                        <div id="admin-logs-list"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-select" class="screen">
+                <h2 class="page-title">Izaberi Predmet</h2>
+                <div class="grid-container">
+                    {% for p, lekcije in podaci.items() %}
+                    <div class="subject-card">
+                        <div class="card-header">
+                            <h3>{{p}}</h3><span class="badge">{{ lekcije|length }}</span>
+                        </div>
+                        <button class="btn btn-outline-red" onclick="startTotalExam('{{p}}')">Test Znanja</button>
+                        <div class="lesson-list">
+                            {% for l in lekcije %}
+                            <button class="lesson-item" onclick="startLearnLesson('{{p}}','{{l}}')">
+                                <div>
+                                    {% if l in completed %}
+                                    <span style="color:var(--success-color); margin-right:5px;">✅</span>
+                                    {% endif %}
+                                    {{l}}
+                                </div>
+                                <span class="arrow">→</span>
+                            </button>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="view-work" class="screen">
+                <div class="work-toolbar"><button class="btn btn-sm btn-ghost" onclick="goBack('view-select')">←
+                        Nazad</button>
+                    <h3 id="work-header">...</h3>
+                </div>
+                <div id="ai-loader" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>...</p>
+                </div>
+                <div id="work-content" class="fade-in"></div>
+            </div>
+
+        </div>
+    </div>
+    <div id="floating-calc" style="display: none;">
+        <div id="fc-header">🧮 DIGITRON (Povuci me)</div>
+        <div id="fc-disp">0</div>
+        <div class="calc-keys">
+            <button class="btn-calc op" onclick="cClr()">C</button>
+            <button class="btn-calc op" onclick="cIn('(')">(</button>
+            <button class="btn-calc op" onclick="cIn(')')">)</button>
+            <button class="btn-calc op" onclick="cIn('/')">÷</button>
+
+            <button class="btn-calc" onclick="cIn('7')">7</button>
+            <button class="btn-calc" onclick="cIn('8')">8</button>
+            <button class="btn-calc" onclick="cIn('9')">9</button>
+            <button class="btn-calc op" onclick="cIn('*')">×</button>
+
+            <button class="btn-calc" onclick="cIn('4')">4</button>
+            <button class="btn-calc" onclick="cIn('5')">5</button>
+            <button class="btn-calc" onclick="cIn('6')">6</button>
+            <button class="btn-calc op" onclick="cIn('-')">-</button>
+
+            <button class="btn-calc" onclick="cIn('1')">1</button>
+            <button class="btn-calc" onclick="cIn('2')">2</button>
+            <button class="btn-calc" onclick="cIn('3')">3</button>
+            <button class="btn-calc op" onclick="cIn('+')">+</button>
+
+            <button class="btn-calc" onclick="cIn('0')">0</button>
+            <button class="btn-calc" onclick="cIn('.')">.</button>
+            <button class="btn-calc enter" onclick="cCalc()">=</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <script>
+        // Override finishSession to mark complete
+        const originalFinish = finishSession;
+        finishSession = async function (isLearn) {
+            await originalFinish(isLearn);
+            if (isLearn && !document.body.innerText.includes("ALARM")) {
+                // Ako nije zabušant, označi kao complete
+                fetch("/api/mark_complete", {
+                    method: "POST", headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ lesson: CUR_L })
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

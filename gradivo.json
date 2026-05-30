@@ -1,0 +1,39 @@
+{
+    "Matematika": {
+        "L1: Skupovi brojeva": "Skupovi prirodnih (N), cijelih (Z), racionalnih (Q) i realnih (R) brojeva. Definicije, primjeri i grafički prikaz skupova. Operacije u skupu R: zbrajanje, oduzimanje, množenje, dijeljenje. Svojstva brojeva: komutativnost, asocijativnost, distributivnost. Primjena skupova u svakodnevnom Žršljivu.",
+        "L2: Algebarski izrazi": "Kvadriranje binoma (a±b)² = a² ± 2ab + b². Razlika kvadrata a² - b² = (a - b)(a + b). Kub binoma i razlika kubova. Svojstva potencija i korijena u algebarskim izrazima. Primjeri pojednostavljanja izraza i rješavanja zadataka.",
+        "L3: Potencije i korijeni": "Pravila za potencije istih baze: a^n * a^m = a^(n + m). Potenciranje potencije (a^n)^m = a^(n*m). N-ti korijeni, svojstva i primjena. Račanje s potencijama i korijenima, racionalizacija nazivnika.",
+        "L4: Linearne jednadže": "Rješavanje jednadže oblika ax + b = 0. Linearne nejednadže i intervali rješenja na brojevnom pravcu. Grafički prikaz linearnih funkcija. Primjeri iz prakse i zadaci za vježbu.",
+        "L5: Sistemi jednadže": "Sustavi dvije linearne jednadže s dvije nepoznanice. Metode supstitucije i suprotnih koeficijenata. Grafičko rješavanje sustava. Primjeri iz prakse i zadaci za vježbu."
+    },
+    "Kemija": {
+        "L1: Struktura materije": "Građa atoma (proton, neutron, elektron), atomski broj i maseni broj. Elektronski omotač, ljuske i podljuske. Periodni sustav elemenata (PSE), periodičnost svojstava. Izotopi i ionske vrste.",
+        "L2: Kemijske veze": "Ionska, kovalentna i vodikova veza. Objašnjenje nastanka i svojstva svake vrste veze. Polarnost molekula, međumolekulske sile. Utjecaj veze na fizikalna i kemijska svojstva tvari.",
+        "L3: Stehiometrija": "Mol, molarna masa (M=m/n), Avogadrov broj. Izračanje količine tvari, masu, volumen plinova. Primjeri stehiometrijskih izračanja u kemijskim reakcijama.",
+        "L4: Otopine": "Maseni udio, koncentracija otopine (mol/L), razrjeđivanje i zasičenje. Topljivost krutine u vodi, faktori koji utječu na topljivost. Priprema otopina i izračanje koncentracije."
+    },
+    "Anatomija": {
+        "L1: Osteologija": "Sastav i građa kostiju: kompaktna i spužvasta tvar, pokosnica. Kosti glave (lubanja), trupe (kralježenica, rebra, prsna kost) i ekstremiteta (ruke, noge). Uloga kostiju u pokretanju i zaštiti organa.",
+        "L2: Miologija": "Vrste mišičaka: poprečno-prugasti, glatki i srčan. Mehanika kontrakcije mišičaka, osnovni pojmovi (aktin, miozin, ATP). Glavni mišičaki tijela i njihova funkcija. Primjeri pokreta i važnost vježbanja.",
+        "L3: Ravnine i smjerovi": "Sagitalna, frontalna i horizontalna ravnina. Orijentacija u anatomiji: medijalno, lateralno, proksimalno, distalno, anteriorno, posteriorno. Primjeri upotrebe ravnina i smjerova u opisivanju položaja organa."
+    },
+    "Osnove zdravstvene njege": {
+        "L1: Povijest i Etika": "Florence Nightingale i razvoj sestrinstva. Sestrinska dokumentacija, važnost vođenja bilješki. Etična principa: povjerljivost, poštovanje, odgovornost. Primjeri etičkih dilema u praksi.",
+        "L2: Higijena i Asepsa": "Dezinfekcija i sterilizacija: metode, sredstva i važnost. Pravilno pranje i ribanje ruku, osobna higijena zdravstvenih djelatnika. Prevencija infekcija u zdravstvenim ustanovama.",
+        "L3: Vitalni znakovi": "Mjerenje pulsa, krvnog tlaka, tjelesne temperature i disanja. Normalne vrijednosti i odstupanja. Značaj praćenja vitalnih znakova za procjenu zdravstvenog stanja pacijenta."
+    },
+    "Biologija": {
+        "L1: Citologija": "Eukariotska stanica: građa i funkcija organela (jezgra, mitohondrij, ribosom, endoplazmatski retikulum, Golgijev aparat, lizosom). Razlika između biljne i životinjske stanice. Uloga stanica u organizmu.",
+        "L2: Biomolekule": "Struktura DNA, proteini, lipidi i ugljikohidrati. Uloga biomolekula u staničnoj procesima. Primjeri iz svakodnevnog Žršljivu.",
+        "L3: Stanični ciklus": "Faze mitoze (profaza, metafaza, anafaza, telofaza) i mejoza. Kontrola staničnog ciklusa, važnost diobe za rast i obnovu organizma. Poremećaji staničnog ciklusa (rak).",
+        "L4: Biljne i životinjske stanice": "Usporedna analiza ultrastrukture: stanična stijenka, plastidi (kloroplasti, kromoplasti, leukoplasti) i velike vakuole kod biljaka naspram centriola i lizosoma kod životinja. Autotrofni i heterotrofni metabolizam. Turgorski tlak i uloga plazmodezmi u komunikaciji biljnih stanica.",
+        "L5: Gljive": "Biologija i citologija gljiva: hife, micelij i stanična stijenka od hitina. Načini prehrane (saprofiti, paraziti, simbionti). Razmnožavanje sporama i uloga gljiva u kruženju tvari (razlagači). Važnost kvasaca u biotehnologiji i primjena u prehrambenoj industriji.",
+        "L6: Razlika životinjskih carstava": "Klasifikacija metazoa na temelju tjelesne simetrije (radijalna i bilateralna), broja zametnih listića (diploblasti i triploblasti) i tipa tjelesne šupljine (celom). Razlikovanje beskralježnjaka (spužve, žarnjaci, člankonošci) i svitkovaca (ribe, vodozemci, gmazovi, ptice, sisavci).",
+        "L7: Biosistematika": "Principi biološke klasifikacije i taksonomije. Hijerarhijske kategorije (vrsta, rod, porodica, red, razred, koljeno, carstvo, domena). Binarna nomenklatura Carla Linnéa. Filogenetska stabla i korištenje molekularnih metoda (DNA sekvenciranje) u suvremenoj sistematici."
+    },
+    "Latinski jezik": {
+        "L1: Osnove izgovora": "Medicinski izgovor i naglasak. Suglasnici i diftonzi. Pravila čitanja latinskih riječi, naglašavanje slogova. Primjeri medicinskih termina.",
+        "L2: I i II deklinacija": "Imenice ženskog roda na -a (I deklinacija) i muškog/srednjeg na -us, -um (II deklinacija). Pravila deklinacije, primjeri u medicinskoj terminologiji. Vježbe prepoznavanja oblika.",
+        "L3: Medicinski nazivi": "Anatomsko nazivlje organa, kostiju i mišića. Latinski korijeni u medicinskim izrazima. Primjeri prevođenja i upotrebe u svakodnevnoj medicinskoj praksi."
+    }
+}

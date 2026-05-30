@@ -1,0 +1,73 @@
+# ── Python ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Virtualna okruženja ──────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ── Baza podataka ────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ── Tajni podaci ─────────────────────────────────────────
+.env
+*.env
+!.env.example
+
+# ── Logovi i izvještaji učenika ──────────────────────────
+izvjestaji/
+*.log
+process_audit.log
+
+# ── Ucenik stats (legacy JSON) ───────────────────────────
+ucenik_stats.json
+
+# ── Atlas slike (435 PNG-ova, ne idu u git) ───────────────
+atlas_processed/images/
+
+# ── Atlas index (15 MB JSON) ─────────────────────────────
+atlas_processed/atlas_index.json
+
+# ── Sobotta PDF (binary, prevelik) ───────────────────────
+*.pdf
+
+# ── OS fajlovi ───────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── IDE ──────────────────────────────────────────────────
+.idea/
+.vscode/
+*.code-workspace
+*.swp
+*.swo
+
+# ── Pytest / Coverage ────────────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.tox/
+
+# ── Ngrok ────────────────────────────────────────────────
+ngrok.log
+ngrok.yml
+token.txt

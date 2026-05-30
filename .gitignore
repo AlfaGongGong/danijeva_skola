@@ -1,0 +1,70 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtualna okruĹľenja
+venv/
+.venv/
+env/
+ENV/
+
+# Baza podataka
+*.db
+*.sqlite
+*.sqlite3
+
+# Tajni podaci
+.env
+*.env
+!.env.example
+
+# Logovi i izvjeĹˇtaji uÄŤenika
+izvjestaji/
+*.log
+process_audit.log
+
+# Legacy stats
+ucenik_stats.json
+
+# Atlas slike (435 PNG-ova, ~150MB)
+atlas_processed/images/
+
+# Atlas index (15 MB JSON)
+atlas_processed/atlas_index.json
+
+# Sobotta PDF (prevelik za git)
+*.pdf
+
+# Windows
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+*.code-workspace
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Ngrok
+ngrok.log
+ngrok.yml
