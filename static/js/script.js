@@ -1,5 +1,19 @@
 // static/js/script.js
 
+// --- UTILITY: Safe HTML sanitizer ---
+function sanitizeHTML(html) {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  // Remove script tags and event handlers
+  div.querySelectorAll('script').forEach(el => el.remove());
+  div.querySelectorAll('*').forEach(el => {
+    for (const attr of [...el.attributes]) {
+      if (attr.name.startsWith('on')) el.removeAttribute(attr.name);
+    }
+  });
+  return div.innerHTML;
+}
+
 // --- GLOBALNE VARIJABLE ---
 let USER = "", CUR_P = "", CUR_L = "", CUR_MODE = "", LOGIN_TIME = 0;
 let START_TIME = 0, QS = [], CUR_Q = 0, SCORE = 0;
@@ -503,7 +517,8 @@ function nextQuestion() {
       optsContainer.appendChild(b);
     });
   } else {
-    optsContainer.innerHTML = `<div class="input-group"><input type="text" id="ans" placeholder=" " autocomplete="off"><label>Tvoj odgovor</label></div><button class="btn btn-primary" onclick="submitAnswer(document.getElementById('ans').value, '${q.a}')">POTVRDI</button>`;
+    optsContainer.innerHTML = `<div class="input-group"><input type="text" id="ans" placeholder=" " autocomplete="off"><label>Tvoj odgovor</label></div><button class="btn btn-primary" id="confirm-btn">POTVRDI</button>`;
+    document.getElementById("confirm-btn").addEventListener("click", () => submitAnswer(document.getElementById('ans').value, q.a));
     document.getElementById("ans").addEventListener("keypress", function (e) { if (e.key === "Enter") submitAnswer(this.value, q.a); });
   }
   startTimer();
@@ -548,6 +563,9 @@ async function submitAnswer(u, a) {
   if (opts) { opts.style.pointerEvents = "none"; opts.style.opacity = "0.6"; }
 
   let userDisplay = u === "TIMEOUT" ? "⏰ ISTEKLO VRIJEME" : (u || "Prazno");
+  // Escape HTML entities to prevent XSS
+  let safeUserDisplay = userDisplay.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  let safeAnswer = String(a).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   let score = 0;
 
   if (u !== "TIMEOUT") {
@@ -563,7 +581,6 @@ async function submitAnswer(u, a) {
   SCORE += score;
 
   let result = score >= 1.0 ? 'CORRECT' : (score >= 0.5 ? 'PARTIAL' : 'WRONG');
-  let userDisplay = u === "TIMEOUT" ? "⏰ ISTEKLO VRIJEME" : (u || "Prazno");
 
   showAnswerFeedback(result, a, userDisplay);
 
@@ -572,8 +589,8 @@ async function submitAnswer(u, a) {
       <h2 style="margin:0">${score >= 0.5 ? '✅ TOČNO' : '❌ KRIVO'}</h2>
       <div style="margin:15px 0; text-align:left;">
           <p style="margin:5px 0; color:var(--text-muted);">Tvoj odgovor:</p>
-          <div style="font-size:1.1rem; font-weight:bold;">${userDisplay}</div>
-          ${score < 0.5 ? `<hr style="border-color:rgba(0,0,0,0.1); margin:10px 0;"><p style="margin:5px 0; color:var(--text-muted);">Točan odgovor:</p><div style="font-size:1.1rem; font-weight:bold;">${a}</div>` : ''}
+          <div style="font-size:1.1rem; font-weight:bold;">${safeUserDisplay}</div>
+          ${score < 0.5 ? `<hr style="border-color:rgba(0,0,0,0.1); margin:10px 0;"><p style="margin:5px 0; color:var(--text-muted);">Točan odgovor:</p><div style="font-size:1.1rem; font-weight:bold;">${safeAnswer}</div>` : ''}
       </div>
       <button class="btn btn-primary" onclick="CUR_Q++; nextQuestion()" id="next-btn">${CUR_Q < QS.length - 1 ? 'SLJEDEĆE ➜' : 'KRAJ 🏁'}</button>
   </div>`;
@@ -616,7 +633,7 @@ async function finishSession(aborted = false) {
     if (resp.report) {
       let doomContent = document.getElementById('doom-content');
       if (doomContent) {
-        doomContent.innerHTML = resp.report;
+        doomContent.innerHTML = sanitizeHTML(resp.report);
         openModal('doom-modal');
       }
     }
@@ -688,7 +705,7 @@ function zoomImg(s, type) {
 
 // Admin
 async function saveAdminData() { try { let d = JSON.parse(document.getElementById("editor-area").value); await fetch("/api/admin/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) }); alert("Spremljeno!"); location.reload(); } catch (e) { alert("JSON Error!"); } }
-async function adminLoadLogs() { let r = await fetch("/api/admin/logs/list", { method: "POST" }); let d = await r.json(); document.getElementById("admin-logs-list").innerHTML = d.files ? d.files.map(f => `<div onclick="adminViewLog('${f}')">📄 ${f}</div>`).join("") : "Nema logova."; }
+async function adminLoadLogs() { let r = await fetch("/api/admin/logs/list", { method: "POST" }); let d = await r.json(); let container = document.getElementById("admin-logs-list"); if (d.files) { container.innerHTML = ''; d.files.forEach(f => { let div = document.createElement('div'); div.textContent = '📄 ' + f; div.style.cursor = 'pointer'; div.addEventListener('click', () => adminViewLog(f)); container.appendChild(div); }); } else { container.innerHTML = "Nema logova."; } }
 async function adminViewLog(f) { let r = await fetch("/api/admin/logs/read", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ filename: f }) }); let d = await r.json(); document.getElementById("log-content").innerText = JSON.stringify(d.data, null, 2); openModal('log-modal'); }
 
 function toggleFloatingCalc() {
@@ -706,7 +723,11 @@ function cClr() {
 function cCalc() {
   let d = document.getElementById("fc-disp");
   if (d) {
-    try { d.innerText = eval(d.innerText); }
+    try {
+      // Safe math evaluation without eval()
+      let expr = d.innerText.replace(/[^0-9+\-*/.() ]/g, '');
+      d.innerText = Function('"use strict"; return (' + expr + ')')();
+    }
     catch (e) { d.innerText = "ERR"; }
   }
 }

@@ -7,6 +7,6 @@ if __name__ == "__main__":
     if NGROK_TOKEN:
         from pyngrok import ngrok
         ngrok.set_auth_token(NGROK_TOKEN)
-        tunnel = ngrok.connect(5000, domain=NGROK_DOMAIN or None)
+        tunnel = ngrok.connect("5000", domain=NGROK_DOMAIN or None)
         print(f"Ngrok URL: {tunnel.public_url}")
     app.run(debug=False, port=5000)

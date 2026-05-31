@@ -70,11 +70,15 @@ def get_lesson_content(subject, topic):
             (row["id"],),
         )
         for q in c.fetchall():
+            try:
+                options = json.loads(q["options"]) if q["options"] else []
+            except (json.JSONDecodeError, TypeError):
+                options = []
             res["questions"].append(
                 {
                     "q": q["question"],
                     "a": q["answer"],
-                    "o": json.loads(q["options"]) if q["options"] else [],
+                    "o": options,
                     "t": q["q_type"],
                 }
             )
@@ -142,11 +146,19 @@ def get_user_stats_from_db(username="Dani"):
     row = c.fetchone()
     conn.close()
     if row:
+        try:
+            medals = json.loads(row["medals"]) if row["medals"] else []
+        except (json.JSONDecodeError, TypeError):
+            medals = []
+        try:
+            completed = json.loads(row["completed_lessons"]) if row["completed_lessons"] else []
+        except (json.JSONDecodeError, TypeError):
+            completed = []
         return {
-            "xp": row["xp"],
-            "lvl": row["lvl"],
-            "medals": json.loads(row["medals"]),
-            "completed_lessons": json.loads(row["completed_lessons"]),
+            "xp": row["xp"] or 0,
+            "lvl": row["lvl"] or 1,
+            "medals": medals,
+            "completed_lessons": completed,
         }
     return {"xp": 0, "lvl": 1, "medals": [], "completed_lessons": []}
 
@@ -169,4 +181,8 @@ def update_user_stats_db(username, xp, lvl, medals, completed):
     conn.close()
 
 
-init_db()
+try:
+    init_db()
+except Exception:
+    import logging as _logging
+    _logging.warning("Database initialization failed at module load. Will retry in app context.")

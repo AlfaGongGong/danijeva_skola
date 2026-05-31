@@ -276,10 +276,12 @@ def api_admin_del():
     p = d.get("predmet")
     l = d.get("lekcija")
     if p and l:
-        c = get_db().cursor()
-        c.execute("DELETE FROM lessons WHERE subject=? AND topic=?", (p, l))
-        c.connection.commit()
-        c.connection.close()
+        conn = get_db()
+        try:
+            conn.execute("DELETE FROM lessons WHERE subject=? AND topic=?", (p, l))
+            conn.commit()
+        finally:
+            conn.close()
     return jsonify({"ok": True})
 
 
@@ -320,13 +322,15 @@ def api_admin_update_stats():
         return jsonify({"ok": False})
     try:
         new_xp = int(val)
-        c = get_db().cursor()
-        c.execute(
-            "UPDATE user_stats SET xp=?, lvl=? WHERE username='Dani'",
-            (new_xp, 1 + new_xp // 500),
-        )
-        c.connection.commit()
-        c.connection.close()
+        conn = get_db()
+        try:
+            conn.execute(
+                "UPDATE user_stats SET xp=?, lvl=? WHERE username=?",
+                (new_xp, 1 + new_xp // 500, "Dani"),
+            )
+            conn.commit()
+        finally:
+            conn.close()
         return jsonify({"ok": True})
     except Exception:
         return jsonify({"ok": False})

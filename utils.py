@@ -42,14 +42,14 @@ def requires_auth(f):
             if user == "admin" and pw == ADMIN_PASSWORD:
                 return f(*args, **kwargs)
             elif pw == ACCESS_PASSWORD:
-                return jsonify({"ok": True, "role": "student", "user": user})
+                return f(*args, **kwargs)
             return jsonify({"ok": False, "msg": "Pristup odbijen"})
 
         # 2. STANDARDNA PROVJERA (Ako pristupaš preko Ngroka/Interneta)
         if user == "admin" and pw == ADMIN_PASSWORD:
             return f(*args, **kwargs)
         elif pw == ACCESS_PASSWORD:
-            return jsonify({"ok": True, "role": "student", "user": user})
+            return f(*args, **kwargs)
 
         return jsonify({"ok": False, "role": "student", "msg": "Pristup odbijen"})
 

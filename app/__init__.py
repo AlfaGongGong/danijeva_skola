@@ -1,5 +1,6 @@
 from flask import Flask
 import os
+import logging
 
 
 def create_app():
@@ -20,7 +21,11 @@ def create_app():
     from database import init_db
     from config import IZVJESTAJI_DIR
     os.makedirs(IZVJESTAJI_DIR, exist_ok=True)
+
     with app.app_context():
-        init_db()
+        try:
+            init_db()
+        except Exception as e:
+            logging.error(f"Database initialization error: {e}")
 
     return app

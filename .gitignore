@@ -54,6 +54,7 @@ ehthumbs.db
 # IDE
 .idea/
 .vscode/
+.roo/
 *.code-workspace
 *.swp
 *.swo
