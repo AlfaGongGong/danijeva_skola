@@ -1,9 +1,14 @@
 import os
-import sys
+import logging
 from dotenv import load_dotenv
 
 load_dotenv()
 
+logger = logging.getLogger("Config")
+
+# =====================================================================
+# PUTANJE
+# =====================================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 IZVJESTAJI_DIR = os.path.join(BASE_DIR, "izvjestaji")
 STATS_FILE = os.path.join(BASE_DIR, "ucenik_stats.json")
@@ -11,8 +16,19 @@ GRADIVO_FILE = os.path.join(BASE_DIR, "gradivo.json")
 ATLAS_DIR = os.path.join(BASE_DIR, "atlas_processed", "images")
 ATLAS_INDEX_FILE = os.path.join(BASE_DIR, "atlas_processed", "atlas_index.json")
 
-# --- AUTH ---
+# Za atlas.py
+BASE_OUTPUT_DIR = os.path.join(BASE_DIR, "atlas_processed")
+TESSERACT_CMD = os.getenv("TESSERACT_CMD", "tesseract")
+POPPLER_PATH = os.getenv("POPPLER_PATH", "")
+INPUT_PDF = os.path.join(
+    BASE_DIR, os.getenv("INPUT_PDF", "sobotta-anatomski-atlas.pdf")
+)
+
+# =====================================================================
+# AUTH
+# =====================================================================
 NGROK_TOKEN = os.getenv("NGROK_AUTH_TOKEN")
+NGROK_DOMAIN = os.getenv("NGROK_DOMAIN", "")
 ACCESS_PASSWORD = os.getenv("ACCESS_PASSWORD")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
@@ -25,14 +41,66 @@ if not ACCESS_PASSWORD or not ADMIN_PASSWORD:
             "ACCESS_PASSWORD i ADMIN_PASSWORD moraju biti postavljeni u .env fajlu!"
         )
 
-NGROK_DOMAIN = os.getenv("NGROK_DOMAIN", "")
-
-# --- AI ---
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-MODEL_ID = "models/gemma-3-27b-it"
+# =====================================================================
+# AI — MODEL S AUTOMATSKIM FALLBACKOM
+# =====================================================================
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
 API_KEYS_LIST = [GOOGLE_API_KEY] if GOOGLE_API_KEY else []
 
-# --- GAMIFICATION ---
+# Redoslijed preferenci — prvi koji proradi se koristi
+MODEL_CANDIDATES = [
+    "gemini-2.5-flash",  # Najnoviji, najinteligentniji
+    "gemini-2.0-flash",  # Stabilan, brz, dobar za JSON
+    "gemini-2.0-flash-lite",  # Lakši, besplatni tier
+    "gemini-1.5-flash",  # Stariji ali pouzdani fallback
+]
+
+
+def _detect_working_model(api_key, candidates):
+    """
+    Proba svaki model s minimalnim test-promptom.
+    Vraća naziv prvog koji odgovori bez greške, ili None.
+    Loguje rezultat svakog pokušaja.
+    """
+    if not api_key:
+        logger.warning("[ModelDetect] Nema API ključa — preskačem detekciju.")
+        return None
+
+    try:
+        from google import genai
+
+        client = genai.Client(api_key=api_key)
+    except Exception as e:
+        logger.error(f"[ModelDetect] Ne mogu inicijalizovati genai klijent: {e}")
+        return None
+
+    for model in candidates:
+        try:
+            logger.info(f"[ModelDetect] Testiram: {model} ...")
+            resp = client.models.generate_content(
+                model=model, contents="Odgovori samo sa: OK"
+            )
+            if resp and resp.text:
+                logger.info(f"[ModelDetect] ✅ Radi: {model}")
+                return model
+            else:
+                logger.warning(f"[ModelDetect] ⚠️  Prazan odgovor: {model}")
+        except Exception as e:
+            logger.warning(f"[ModelDetect] ❌ Ne radi {model}: {e}")
+
+    logger.error("[ModelDetect] Nijedan model nije prošao provjeru!")
+    return None
+
+
+# Pokušaj detekcije pri importu; pad na prvi kandidat ako sve zakaže
+_detected = _detect_working_model(GOOGLE_API_KEY, MODEL_CANDIDATES)
+MODEL_ID = _detected if _detected else MODEL_CANDIDATES[0]
+
+print(f"[Config] Aktivan AI model: {MODEL_ID}")
+
+# =====================================================================
+# GAMIFICATION
+# =====================================================================
 RANKS = {
     0: "PODRUMAR (LVL 1)",
     500: "ULIČNI SVIRAČ (LVL 2)",
@@ -49,7 +117,11 @@ MEDALS = {
         "icon": "👣",
         "desc": "Završio prvu lekciju.",
     },
-    "NERD": {"name": "Štreber", "icon": "🤓", "desc": "Riješio test sa 100% točnosti."},
+    "NERD": {
+        "name": "Štreber",
+        "icon": "🤓",
+        "desc": "Riješio test sa 100% točnosti.",
+    },
     "SURVIVOR": {
         "name": "Preživjeli",
         "icon": "🩹",
@@ -60,14 +132,16 @@ MEDALS = {
         "icon": "⚡",
         "desc": "Riješio izuzetno brzo.",
     },
-    # --- PROMJENA OVDJE: 3000 XP ---
-    "BOOKWORM": {"name": "Knjiški Moljac", "icon": "📚", "desc": "Skupio 3000 XP-a."},
+    "BOOKWORM": {
+        "name": "Knjiški Moljac",
+        "icon": "📚",
+        "desc": "Skupio 3000 XP-a.",
+    },
     "IRON_MAN": {
         "name": "Iron Man",
         "icon": "🤖",
         "desc": "Nije izašao iz taba tijekom testa.",
     },
-    # Negativne
     "SPEEDING_TICKET": {
         "name": "Kazna za Brzinu",
         "icon": "🚓",
@@ -82,29 +156,14 @@ MEDALS = {
     },
     "SLEEPING_BEAUTY": {
         "name": "Trnoružica",
-        "icon": "💤",
-        "desc": "Zaspao usred lekcije.",
+        "icon": "😴",
+        "desc": "Zaspao za računalom.",
         "type": "bad",
     },
     "CHEATER": {
         "name": "Prevarant",
-        "icon": "🦹",
-        "desc": "Uhvaćen kako izlazi iz taba.",
+        "icon": "🕵️",
+        "desc": "Izašao iz taba.",
         "type": "bad",
     },
 }
-
-DEFAULT_GRADIVO = {}
-
-# Atlas OCR alati — cross-platform defaults
-if sys.platform == "win32":
-    _default_tesseract = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-    _default_poppler = r"C:\Program Files\poppler-24\Library\bin"
-else:
-    _default_tesseract = "tesseract"
-    _default_poppler = ""
-
-TESSERACT_CMD = os.getenv("TESSERACT_CMD", _default_tesseract)
-POPPLER_PATH = os.getenv("POPPLER_PATH", _default_poppler)
-INPUT_PDF = os.getenv("INPUT_PDF", os.path.join(BASE_DIR, "sobotta-anatomski-atlas.pdf"))
-BASE_OUTPUT_DIR = os.path.join(BASE_DIR, "atlas_processed")

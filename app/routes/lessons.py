@@ -1,7 +1,7 @@
-import os
 import json
 import logging
 import time
+import re
 
 from flask import Blueprint, request, jsonify
 from config import (
@@ -10,292 +10,301 @@ from config import (
     MODEL_ID,
     GOOGLE_API_KEY,
     RANKS,
+    GRADIVO_FILE,
 )
 from database import get_lesson_content, save_lesson_data
-from utils import extract_json, find_atlas_image, get_atlas_index
 
+# =====================================================================
+# INICIJALIZACIJA
+# =====================================================================
 lessons_bp = Blueprint("lessons", __name__)
+logger = logging.getLogger("LessonsAPI")
+logger.setLevel(logging.INFO)
 
-# --- PROMPTOVI ---
+# =====================================================================
+# PROMPTOVI
+# =====================================================================
 PROMPT_TEACHER = """
-ULOGA: Ti si Maestro Taktić — stari, cinični roker i legendarni instruktor bubnjeva s 30 godina iskustva na sceni. Svirao si u svim važnim klubovima od Sarajeva do Beograda, objavio 5 albuma i preživio sva ludila rock'n'roll života. Tvoj omiljeni učenik Dani svira bubnjeve u bendu i mora položiti školu. Ti mu pomažeš — ali na svoj način: svako gradivo pretvoriš u nešto što bubnjar može razumjeti i zapamtiti.
-
-DANIJEVA PRIČA: Dani je bubnjar. Kad svira, zna što radi. Kad uči za školu, luta. Tvoj zadatak je da mu mostove između tih dvaju svjetova gradiš od konkretnih analogija — bubnjeva, ritma, taktova, dinamike, benda, probe, nastupa, studijskog snimanja i svega što bubnjar doživljava.
-
-TON I STIL (OBAVEZNO):
-- Piši toplo ali direktno, kao mentor koji iskreno želi da učenik uspije.
-- Svaki novi koncept uvedi kroz bubnjarsku analogiju PRIJE nego što daš stručno objašnjenje.
-- Koristi specifične bubnjaške pojmove: kick, snare, hi-hat, tom, ride, crash, groove, fill, tempo, takt, dinamika, akcentuacija, poliritmija, sinkopa, paradiddle, rudimenti.
-- Svaki modul završi s "🥁 DANIJEV PRO TIP" — kratka, pamtljiva izjava koja veže gradivo uz bubnjanje.
-- Gamifikacijski jezik: spominji XP, levelove, boss bitke (teški ispit), unlockane sposobnosti (naučeni koncepti).
+ULOGA: Ti si stari, cinični roker i instruktor bubnjeva s 30 godina iskustva na sceni.
+Tvoj učenik Dani svira bubnjeve u bendu i mora naučiti ovo gradivo za školu.
+Ti mu pomažeš tako što gradivo povezuješ s glazbom, bubnjevima, bendom, koncertima i rock'n'roll životom.
+TON I STIL:
+- Koristi sleng glazbenika, metafore iz svijeta muzike i usporedbe s bubnjevima/bendom gdje god ima smisla.
+- Budi opširan i detaljan — svaki modul mora imati NAJMANJE 4-5 paragrafa (svaki paragraf min. 3-4 rečenice).
+- Objasni svaki koncept temeljito, s primjerima i analogijama iz glazbe.
+- Na kraju svakog modula daj "Pro tip" — kratki savjet kako to zapamtiti koristeći muzičku analogiju.
+- Budi cool ali informativan — učenik mora STVARNO naučiti gradivo iz tvog objašnjenja.
 
 TEMA: {l} ({p}).
-
-DETALJNE INFORMACIJE O TEMI (koristi SVE ove podatke — ne preskači ništa!):
+DETALJNE INFORMACIJE O TEMI (koristi SVE ove podatke u svom objašnjenju):
 {info}
 
-PRAVILA ZA STRUKTURU (STROGO SE DRŽI!):
-1. Podijeli lekciju na TOČNO 5 modula. Svaki modul mora imati VLASTITI NASLOV koji opisuje sadržaj.
-2. Svaki modul mora imati MINIMUM 400 RIJEČI — nema kraćih modula, nikakve iznimke!
-3. Struktura svakog modula:
-   a) UVOD s bubnjarskom analogijom (2-3 rečenice koje vežu temu uz bubnjanje)
-   b) GLAVNI SADRŽAJ — sve definicije, formule, koncepti, klasifikacije iz INFO dijela, opširno objašnjeni s primjerima
-   c) PRIMJERI I PRIMJENA — konkretni primjeri iz stvarnog života i glazbe
-   d) VEZE S PRETHODNIM GRADIVOM — kako ovaj modul nadovezuje na ranije znanje
-   e) 🥁 DANIJEV PRO TIP — muzička memorijska tehnika za pamćenje ključnog koncepta
-4. Ukupna duljina lekcije: MINIMUM 2500 RIJEČI.
-5. Gdje postoje formule, navedi ih eksplicitno i objasni svaki član formule.
-6. Gdje postoje liste (npr. klasifikacije, organi, zakoni), navedi SVE iz INFO dijela.
-7. Dodaj 8 blic kartica (flash cards) koje pokrivaju sve module — pitanja moraju biti specifična, ne općenita.
+ZADATAK:
+1. Podijeli lekciju na 4-5 logičnih modula (ne 3!). Svaki modul mora biti OPŠIRAN — minimum 300 riječi po modulu.
+2. U svakom modulu koristi konkretne primjere, formule, definicije i objašnjenja iz INFO dijela.
+3. Gdje god je moguće, napravi analogiju s bubnjevima/glazbom.
+4. Dodaj 7 blic pitanja (kartica za ponavljanje) koje pokrivaju sve module.
 
-GAMIFIKACIJSKI ELEMENTI (uključi ih prirodno u tekst):
-- Na početku prvog modula: kratka "LEVEL UP!" motivacija ("Ovim gradivom otključavaš novi skill...")
-- Na kraju trećeg modula: "CHECKPOINT ✓" — kratki sažetak napretka
-- Na kraju zadnjeg modula: "BOSS FIGHT PRIPREMA" — 3 najvažnije stvari za test
-
-VRATI ISKLJUČIVO JSON (bez ikakvog dodatnog teksta prije ili poslije, bez markdown oznaka):
-{{"modules": [{{"title": "Naziv modula 1", "content": "Opširan sadržaj..."}}, {{"title": "Naziv modula 2", "content": "..."}}, {{"title": "Naziv modula 3", "content": "..."}}, {{"title": "Naziv modula 4", "content": "..."}}, {{"title": "Naziv modula 5", "content": "..."}}], "cards": [["Pitanje 1?", "Točan odgovor 1"], ["Pitanje 2?", "Točan odgovor 2"], ["Pitanje 3?", "Točan odgovor 3"], ["Pitanje 4?", "Točan odgovor 4"], ["Pitanje 5?", "Točan odgovor 5"], ["Pitanje 6?", "Točan odgovor 6"], ["Pitanje 7?", "Točan odgovor 7"], ["Pitanje 8?", "Točan odgovor 8"]]}}
+VRATI ISKLJUČIVO JSON (bez dodatnog teksta, bez markdown blokova):
+{{"modules": [{{"title": "Naziv modula", "content": "Opširan sadržaj..."}}], "cards": [["Pitanje?", "Točan odgovor"]]}}
 """
 
 PROMPT_EXAMINER = """
-ULOGA: Ti si izuzetno strog i zahtjevan profesor koji NE TOLERIRA površnost. Tražiš precizne, konkretne odgovore. Nema milosti za one koji ne uče.
-
+ULOGA: Ti si izuzetno strog i zahtjevan profesor koji NE TOLERIRA površnost.
+Tražiš precizne, konkretne odgovore. Nema milosti za one koji ne uče.
 PREDMET: {p}
 TEMA: {l}
 
 PRAVILA ZA KREIRANJE TESTA:
-1. Pitanja moraju biti KONKRETNA i SPECIFIČNA — ne općenita. Traži definicije, formule, brojčane vrijednosti, nazive, klasifikacije.
-2. Pogrešne opcije (distraktori) moraju biti UVJERLJIVE — ne očito glupe. Koristi česte zablude učenika.
-3. Tekstualna pitanja moraju zahtijevati PRECIZNE odgovore (npr. nazovi, definiraj, izračunaj, navedi).
-4. Svako pitanje mora testirati RAZUMIJEVANJE, ne pogađanje.
-5. Uključi pitanja različite težine: 30% lagana, 40% srednja, 30% teška.
-6. Za "radio" tip — uvijek 4 opcije (a, b, c, d). Samo JEDNA je točna.
-7. Za "text" tip — odgovor mora biti jasan i nedvosmislen (1-3 riječi ili kratak izraz/broj).
-8. Za "bool" tip — izjava mora biti takva da učenik mora RAZMISLITI (ne očito točno/netočno).
+1. Pitanja moraju biti KONKRETNA i SPECIFIČNA — ne općenita.
+2. Pogrešne opcije moraju biti UVJERLJIVE — ne očito glupe.
+3. Svako pitanje mora testirati RAZUMIJEVANJE, ne pogađanje.
+4. Uključi pitanja različite težine: 30% lagana, 40% srednja, 30% teška.
+5. Za "radio" tip — uvijek 4 opcije (a, b, c, d). Samo JEDNA je točna.
+6. Za "text" tip — odgovor mora biti jasan i nedvosmislen (1-3 riječi ili kratak izraz).
+7. Za "bool" tip — izjava mora biti takva da učenik mora RAZMISLITI.
 
-ZADATAK: Napravi test od TOČNO 20 pitanja. Raspodjela tipova:
+ZADATAK: Napravi test od TOČNO 20 pitanja:
 - 8 pitanja tipa "radio" (višestruki izbor s 4 opcije)
 - 6 pitanja tipa "text" (učenik piše odgovor)
-- 4 pitanja tipa "bool" (točno/netočno — opcije ["Točno", "Netočno"])
+- 4 pitanja tipa "bool" (opcije ["Točno", "Netočno"])
 - 2 pitanja tipa "radio" s opcijom "Sve navedeno" ili "Ništa od navedenog"
 
-VRATI ISKLJUČIVO JSON LISTU (bez dodatnog teksta):
-[ {{ "q": "Pitanje?", "t": "radio", "o": ["a) ...", "b) ...", "c) ...", "d) ..."], "a": "a) ..." }}, {{ "q": "Pitanje?", "t": "text", "a": "točan odgovor" }}, {{ "q": "Izjava...", "t": "bool", "o": ["Točno", "Netočno"], "a": "Točno" }} ]
+VRATI ISKLJUČIVO JSON LISTU (bez dodatnog teksta, bez markdown blokova):
+[{{"q": "Pitanje?", "t": "radio", "o": ["a) ...", "b) ...", "c) ...", "d) ..."], "a": "a) ..."}}, {{"q": "Pitanje?", "t": "text", "a": "točan odgovor"}}, {{"q": "Izjava...", "t": "bool", "o": ["Točno", "Netočno"], "a": "Točno"}}]
 """
 
-# AI Client
+# =====================================================================
+# AI KLIJENT
+# =====================================================================
 ai_client = None
 if GOOGLE_API_KEY:
     try:
         from google import genai
+
         ai_client = genai.Client(api_key=GOOGLE_API_KEY)
+        logger.info("[+] GenerativeAI klijent uspješno inicijalizovan.")
     except Exception as e:
-        logging.error(f"AI INIT ERROR: {e}")
+        logger.error(f"[-] AI INIT ERROR: {e}")
 
 
-def ai_generate_json(prompt, max_retries=3):
-    """Calls AI and returns parsed JSON. Retries on failure."""
-    if not ai_client:
+# =====================================================================
+# POMOĆNE FUNKCIJE
+# =====================================================================
+
+
+def safe_extract_json(text):
+    """
+    Ekstrahuje JSON iz AI odgovora kroz 4 faze:
+    1. Direktno parsiranje
+    2. Markdown ```json blok
+    3. Bilo koji ``` blok
+    4. Heuristika — prvi { } ili [ ] blok
+    """
+    if not text or not text.strip():
+        logger.warning("[safe_extract_json] Prazan ulazni tekst.")
         return None
-    for attempt in range(max_retries):
+
+    cleaned = text.strip()
+
+    # Faza 1: Direktno
+    try:
+        return json.loads(cleaned)
+    except json.JSONDecodeError:
+        pass
+
+    # Faza 2: ```json ... ```
+    match = re.search(r"```json\s*([\s\S]*?)\s*```", cleaned, re.IGNORECASE)
+    if match:
         try:
-            response = ai_client.models.generate_content(model=MODEL_ID, contents=prompt)
-            if not response.text:
-                logging.warning(f"AI returned empty response (attempt {attempt + 1})")
-                continue
-            result = extract_json(response.text)
-            if result:
-                return result
-            logging.warning(f"AI JSON parse failed (attempt {attempt + 1}), retrying...")
-            time.sleep(1)
-        except Exception as e:
-            logging.error(f"AI Error (attempt {attempt + 1}): {e}")
-            time.sleep(2)
+            return json.loads(match.group(1).strip())
+        except json.JSONDecodeError as e:
+            logger.warning(f"[safe_extract_json] Faza 2 neuspješna: {e}")
+
+    # Faza 3: ``` ... ```
+    match = re.search(r"```\s*([\s\S]*?)\s*```", cleaned)
+    if match:
+        try:
+            return json.loads(match.group(1).strip())
+        except json.JSONDecodeError as e:
+            logger.warning(f"[safe_extract_json] Faza 3 neuspješna: {e}")
+
+    # Faza 4: Heuristika
+    for start_char, end_char in [("{", "}"), ("[", "]")]:
+        start_idx = cleaned.find(start_char)
+        end_idx = cleaned.rfind(end_char)
+        if start_idx != -1 and end_idx > start_idx:
+            try:
+                return json.loads(cleaned[start_idx : end_idx + 1])
+            except json.JSONDecodeError as e:
+                logger.warning(
+                    f"[safe_extract_json] Faza 4 ({start_char}) neuspješna: {e}"
+                )
+
+    logger.error("[safe_extract_json] Sve faze neuspješne.")
     return None
 
 
-def validate_lesson_modules(data):
-    """
-    Validates that the generated lesson has proper structure and minimum content.
-    Returns (is_valid, error_message).
-    """
-    if not data or "modules" not in data:
-        return False, "Nema 'modules' ključa u odgovoru"
-
-    modules = data["modules"]
-    if len(modules) < 4:
-        return False, f"Premalo modula: {len(modules)} (minimum 4)"
-
-    for i, mod in enumerate(modules):
-        if "title" not in mod or "content" not in mod:
-            return False, f"Modul {i+1} nema 'title' ili 'content'"
-        word_count = len(mod["content"].split())
-        if word_count < 150:
-            return False, f"Modul {i+1} prekratak: {word_count} riječi (minimum 150)"
-
-    if "cards" not in data or len(data["cards"]) < 5:
-        return False, "Premalo flash kartica (minimum 5)"
-
-    return True, "OK"
-
-
-
-@lessons_bp.route("/api/content", methods=["POST"])
-def api_content():
-    """
-    Handles lesson content generation.
-    - Checks DB for cached content first.
-    - If not found, generates via AI.
-    - Validates minimum content quality before saving.
-    """
-    d = request.json or {}
-    subject = d.get("subject", "")
-    lesson = d.get("lesson", "")
-    force_regen = d.get("force_regen", False)
-
-    if not subject or not lesson:
-        return jsonify({"ok": False, "msg": "Predmet i lekcija su obavezni"})
-
-    # --- 1. CHECK DB CACHE ---
-    if not force_regen:
-        cached = get_lesson_content(subject, lesson)
-        if cached and cached.get("content"):
-            try:
-                modules = json.loads(cached["content"]) if isinstance(cached["content"], str) else cached["content"]
-                # Validate cached content quality
-                total_words = sum(len(str(m.get("content", "")).split()) for m in modules)
-                if total_words >= 500:  # Accept cached if substantial enough
-                    logging.info(f"Serving cached lesson: {subject} - {lesson} ({total_words} words)")
-                    return jsonify({
-                        "ok": True,
-                        "modules": modules,
-                        "cards": cached.get("cards", []),
-                        "image": cached.get("image_path"),
-                        "source": "cache"
-                    })
-                else:
-                    logging.info(f"Cached lesson too short ({total_words} words), regenerating...")
-            except (json.JSONDecodeError, TypeError):
-                logging.warning("Invalid cached content, regenerating...")
-
-    # --- 2. LOAD GRADIVO (seed info for AI) ---
-    from config import GRADIVO_FILE
-    gradivo_info = ""
+def dohvati_kontekst_iz_gradiva(predmet, tema):
+    """Čita gradivo.json i vraća sirovi kontekst za datu temu."""
     try:
         with open(GRADIVO_FILE, "r", encoding="utf-8") as f:
-            gradivo = json.load(f)
-        gradivo_info = gradivo.get(subject, {}).get(lesson, "")
-        if not gradivo_info:
-            # Try partial match
-            for key, val in gradivo.get(subject, {}).items():
-                if lesson.lower() in key.lower() or key.lower() in lesson.lower():
-                    gradivo_info = val
-                    break
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        logging.warning(f"Gradivo.json load error: {e}")
-
-    if not gradivo_info:
-        gradivo_info = f"Tema '{lesson}' iz predmeta '{subject}'. Generiraj opširan edukativni sadržaj o ovoj temi."
-
-    # --- 3. GENERATE WITH AI ---
-    logging.info(f"Generating lesson: {subject} - {lesson}")
-    prompt = PROMPT_TEACHER.format(l=lesson, p=subject, info=gradivo_info)
-
-    lesson_data = None
-    for attempt in range(3):
-        lesson_data = ai_generate_json(prompt)
-        if lesson_data:
-            is_valid, err = validate_lesson_modules(lesson_data)
-            if is_valid:
-                break
-            logging.warning(f"Validation failed (attempt {attempt+1}): {err}. Retrying AI...")
-            lesson_data = None
-            time.sleep(1)
-
-    if not lesson_data:
-        logging.error(f"AI generation failed for {subject} - {lesson}")
-        return jsonify({"ok": False, "msg": "AI generacija nije uspjela. Pokušaj ponovo."})
-
-    modules = lesson_data.get("modules", [])
-    cards = lesson_data.get("cards", [])
-
-    # Log word count for quality tracking
-    total_words = sum(len(str(m.get("content", "")).split()) for m in modules)
-    logging.info(f"Generated lesson: {len(modules)} modules, {total_words} total words, {len(cards)} cards")
-
-    # --- 4. FIND ATLAS IMAGE ---
-    atlas_image = None
-    try:
-        atlas_index = get_atlas_index()
-        if atlas_index:
-            atlas_image = find_atlas_image(lesson, atlas_index)
+            gradivo_baza = json.load(f)
+            if predmet in gradivo_baza and tema in gradivo_baza[predmet]:
+                logger.info(
+                    f"[dohvati_kontekst] Kontekst pronađen za '{predmet}' / '{tema}'."
+                )
+                return gradivo_baza[predmet][tema]
+            logger.warning(f"[dohvati_kontekst] Tema '{tema}' nije u '{predmet}'.")
+            return "Nema dodatnih specifičnih informacija za ovu temu."
+    except FileNotFoundError:
+        logger.error(f"[dohvati_kontekst] {GRADIVO_FILE} nije pronađen.")
+        return "Nema dostupnog konteksta."
     except Exception as e:
-        logging.warning(f"Atlas search error: {e}")
+        logger.error(f"[dohvati_kontekst] Greška: {e}")
+        return "Nema dostupnog konteksta."
 
-    # --- 5. SAVE TO DB ---
+
+def ai_generate_json(prompt):
+    """Šalje prompt Gemini modelu i vraća parsiran JSON."""
+    if not ai_client:
+        logger.warning("[ai_generate_json] AI klijent nije dostupan.")
+        return None
+
+    start_time = time.time()
     try:
-        save_lesson_data(
-            subject=subject,
-            topic=lesson,
-            data={
-                "modules": modules,
-                "local_image": atlas_image,
-                "cards": cards
-            }
+        logger.info("[ai_generate_json] Šaljem zahtjev prema Gemini API-ju...")
+        response = ai_client.models.generate_content(model=MODEL_ID, contents=prompt)
+        elapsed = time.time() - start_time
+
+        if not response.text:
+            logger.warning(f"[ai_generate_json] Prazan odgovor ({elapsed:.2f}s).")
+            return None
+
+        logger.info(
+            f"[ai_generate_json] Odgovor primljen ({elapsed:.2f}s, {len(response.text)} znakova)."
         )
-        logging.info(f"Saved lesson to DB: {subject} - {lesson}")
+        result = safe_extract_json(response.text)
+
+        if result is None:
+            logger.error("[ai_generate_json] safe_extract_json nije uspio.")
+        else:
+            logger.info(f"[ai_generate_json] JSON OK, tip: {type(result).__name__}.")
+
+        return result
+
     except Exception as e:
-        logging.error(f"DB save error: {e}")
-
-    return jsonify({
-        "ok": True,
-        "modules": modules,
-        "cards": cards,
-        "image": atlas_image,
-        "source": "generated",
-        "word_count": total_words
-    })
+        elapsed = time.time() - start_time
+        logger.error(f"[ai_generate_json] Greška ({elapsed:.2f}s): {e}")
+        return None
 
 
-@lessons_bp.route("/api/generate_test", methods=["POST"])
-def api_generate_test():
-    """
-    Generates a test for a given subject/lesson.
-    Uses cached questions from DB if available.
-    """
-    from database import get_questions, save_questions
-    d = request.json or {}
-    subject = d.get("subject", "")
-    lesson = d.get("lesson", "")
-    force_regen = d.get("force_regen", False)
+# =====================================================================
+# GLAVNI ENDPOINT
+# =====================================================================
+@lessons_bp.route("/api/content", methods=["GET", "POST"])
+def api_content():
+    req_id = int(time.time() * 1000)
 
-    if not subject or not lesson:
-        return jsonify({"ok": False, "msg": "Predmet i lekcija su obavezni"})
+    if request.method == "GET":
+        subject = request.args.get("p")
+        topic = request.args.get("l")
+        mode = request.args.get("mode")
+    else:
+        payload = request.json or {}
+        subject = payload.get("p")
+        topic = payload.get("l")
+        mode = payload.get("mode")
 
-    # Check cached questions
-    if not force_regen:
-        cached_qs = get_questions(subject, lesson)
-        if cached_qs and len(cached_qs) >= 10:
-            logging.info(f"Serving cached test: {subject} - {lesson} ({len(cached_qs)} questions)")
-            return jsonify({"ok": True, "questions": cached_qs, "source": "cache"})
+    logger.info(
+        f"[{req_id}] Zahtjev -> Predmet: '{subject}', Tema: '{topic}', Modus: '{mode}'"
+    )
 
-    # Generate new test
-    logging.info(f"Generating test: {subject} - {lesson}")
-    prompt = PROMPT_EXAMINER.format(p=subject, l=lesson)
-    questions = ai_generate_json(prompt)
+    if not subject or not topic or not mode:
+        return jsonify({"error": "Nedostaju obavezni parametri (p, l, mode)."}), 400
 
-    if not questions or not isinstance(questions, list) or len(questions) < 5:
-        logging.error(f"Test generation failed for {subject} - {lesson}")
-        return jsonify({"ok": False, "msg": "Generacija testa nije uspjela. Pokušaj ponovo."})
-
-    # Save to DB
     try:
-        save_questions(subject, lesson, questions)
-    except Exception as e:
-        logging.error(f"Failed to save questions: {e}")
+        # ==========================================
+        # MODUS UČENJA (LEARN)
+        # ==========================================
+        if mode == "LEARN":
+            # Korak A: Provjera baze — get_lesson_content sad vraća SAMO validan AI dict ili None
+            t0 = time.time()
+            cached = get_lesson_content(subject, topic)
+            db_latency = time.time() - t0
 
-    return jsonify({
-        "ok": True,
-        "questions": questions,
-        "source": "generated"
-    })
+            if cached is not None:
+                logger.info(
+                    f"[{req_id}] [DB HIT] Validan AI sadržaj iz baze ({db_latency:.3f}s)."
+                )
+                return jsonify(cached)
+
+            logger.info(
+                f"[{req_id}] [DB MISS/INVALID] Pokrćem AI generisanje ({db_latency:.3f}s)..."
+            )
+
+            # Korak B: AI generisanje
+            kontekst = dohvati_kontekst_iz_gradiva(subject, topic)
+            prompt = PROMPT_TEACHER.format(p=subject, l=topic, info=kontekst)
+            ai_data = ai_generate_json(prompt)
+
+            if not ai_data:
+                logger.error(f"[{req_id}] AI generisanje neuspješno.")
+                return (
+                    jsonify(
+                        {"error": "AI nije uspio generisati lekciju. Pokušajte ponovo."}
+                    ),
+                    500,
+                )
+
+            # Provjeri da AI stvarno vratio modules i cards
+            if (
+                not isinstance(ai_data, dict)
+                or "modules" not in ai_data
+                or "cards" not in ai_data
+            ):
+                logger.error(
+                    f"[{req_id}] AI vratio neočekivanu strukturu: {list(ai_data.keys()) if isinstance(ai_data, dict) else type(ai_data)}"
+                )
+                return (
+                    jsonify(
+                        {"error": "AI je vratio neispravan format. Pokušajte ponovo."}
+                    ),
+                    500,
+                )
+
+            # Korak C: Spremi u bazu (prepisat će stari sirovi tekst)
+            logger.info(f"[{req_id}] Spašavam AI podatke u bazu.")
+            save_lesson_data(subject, topic, json.dumps(ai_data, ensure_ascii=False))
+            return jsonify(ai_data)
+
+        # ==========================================
+        # MODUS TESTIRANJA (TEST)
+        # ==========================================
+        elif mode == "TEST":
+            logger.info(f"[{req_id}] Pokrećem AI generisanje za TEST...")
+            prompt = PROMPT_EXAMINER.format(p=subject, l=topic)
+            test_data = ai_generate_json(prompt)
+
+            if test_data:
+                return jsonify(test_data)
+            else:
+                logger.error(f"[{req_id}] AI generisanje testa neuspješno.")
+                return (
+                    jsonify(
+                        {"error": "AI nije uspio generisati test. Pokušajte ponovo."}
+                    ),
+                    500,
+                )
+
+        else:
+            return (
+                jsonify(
+                    {"error": f"Nepoznat modus: '{mode}'. Dozvoljeni: LEARN, TEST."}
+                ),
+                400,
+            )
+
+    except Exception as e:
+        logger.exception(f"[{req_id}] Kritična greška: {e}")
+        return jsonify({"error": "Interna serverska greška."}), 500
