@@ -31,6 +31,11 @@
         "L6: Razlika životinjskih carstava": "Klasifikacija metazoa na temelju tjelesne simetrije (radijalna i bilateralna), broja zametnih listića (diploblasti i triploblasti) i tipa tjelesne šupljine (celom). Razlikovanje beskralježnjaka (spužve, žarnjaci, člankonošci) i svitkovaca (ribe, vodozemci, gmazovi, ptice, sisavci).",
         "L7: Biosistematika": "Principi biološke klasifikacije i taksonomije. Hijerarhijske kategorije (vrsta, rod, porodica, red, razred, koljeno, carstvo, domena). Binarna nomenklatura Carla Linnéa. Filogenetska stabla i korištenje molekularnih metoda (DNA sekvenciranje) u suvremenoj sistematici."
     },
+    "Fizika": {
+        "L1: Tehničko rastezanje čvrstih tijela i tekućina": "Hookeov zakon i elastična deformacija čvrstih tijela (σ = E·ε). Youngov modul elastičnosti, naprezanje i relativno produljenje. Toplinska rastezljivost krutina (linearno i volumno širenje). Rastezanje tekućina: koeficijent volumnog širenja tekućina, anomalija vode. Primjeri iz prakse: dilatacijske spojnice, termometri, toplinske deformacije.",
+        "L2: Rad plina na širenju": "Pojam rada u termodinamici: W = p·ΔV za izobarni proces. Rad plina pri izotermnom, izohornom i adijabatskom procesu. Grafički prikaz rada kao površine ispod krivulje u p-V dijagramu. Prvi zakon termodinamike (ΔU = Q - W). Primjeri: rad motora s unutarnjim izgaranjem, ekspanzija plinova.",
+        "L3: Tlak i pritisak": "Definicija tlaka (p = F/A), jedinice (Pa, bar, atm). Hidrostatski tlak (p = ρ·g·h) i Pascalov zakon. Atmosferski tlak i njegovo mjerenje (barometar, manometar). Primjena u hidrauličkim sustavima, tlak u zatvorenim posudama. Arhimedov zakon i uzgon."
+    },
     "Latinski jezik": {
         "L1: Osnove izgovora": "Medicinski izgovor i naglasak. Suglasnici i diftonzi. Pravila čitanja latinskih riječi, naglašavanje slogova. Primjeri medicinskih termina.",
         "L2: I i II deklinacija": "Imenice ženskog roda na -a (I deklinacija) i muškog/srednjeg na -us, -um (II deklinacija). Pravila deklinacije, primjeri u medicinskoj terminologiji. Vježbe prepoznavanja oblika.",
