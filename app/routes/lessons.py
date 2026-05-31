@@ -3,7 +3,7 @@ import json
 import logging
 import time
 
-from flask import Blueprint, request, jsonify, render_template
+from flask import Blueprint, request, jsonify
 from config import (
     IZVJESTAJI_DIR,
     ATLAS_INDEX_FILE,
@@ -138,10 +138,6 @@ def validate_lesson_modules(data):
 
     return True, "OK"
 
-
-@lessons_bp.route("/")
-def index():
-    return render_template("index.html")
 
 
 @lessons_bp.route("/api/content", methods=["POST"])
