@@ -1432,3 +1432,194 @@ body.cheat-attempt {
 }
 
 /* Prazna polja */
+
+/* === TASK 9: Sidebar Subject Icons === */
+.nav-subject-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-muted);
+    transition: background 0.15s, color 0.15s;
+}
+.nav-subject-item:hover { background: var(--card); color: var(--text); }
+.nav-subject-item.active { background: var(--card); color: var(--text); font-weight: 600; }
+.nav-subject-icon { font-size: 16px; width: 20px; text-align: center; }
+.nav-lesson-count {
+    margin-left: auto;
+    font-size: 10px;
+    background: rgba(59,130,246,0.15);
+    color: var(--primary);
+    padding: 2px 6px;
+    border-radius: 99px;
+}
+
+/* === TASK 10: Timer Progress Bar === */
+.timer-bar-bg {
+    height: 5px;
+    background: var(--border);
+    border-radius: 99px;
+    overflow: hidden;
+    margin-top: 4px;
+}
+.timer-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 1s linear, background 0.5s;
+    background: var(--primary);
+}
+#timer-container {
+    margin-bottom: 12px;
+}
+.timer-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+/* === TASK 11: Answer Feedback === */
+.feedback {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 14px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 8px 0;
+}
+.feedback-correct { background: rgba(34,197,94,0.12); border-left: 3px solid var(--success); color: var(--success); }
+.feedback-partial  { background: rgba(245,158,11,0.12); border-left: 3px solid #f59e0b; color: #f59e0b; }
+.feedback-wrong    { background: rgba(239,68,68,0.12);  border-left: 3px solid var(--danger); color: var(--danger); }
+.feedback-answer   { font-size: 12px; font-weight: 400; color: var(--text-muted); margin-top: 4px; }
+
+/* === TASK 12: Result Dashboard === */
+.result-dashboard { display: flex; flex-direction: column; gap: 10px; padding: 1rem; }
+.result-score-row { display: flex; align-items: flex-end; gap: 8px; }
+.result-big-num { font-size: 48px; font-weight: 700; color: var(--primary); line-height: 1; }
+.result-denom { font-size: 18px; color: var(--text-muted); padding-bottom: 4px; }
+.result-diff { font-size: 12px; margin-left: auto; align-self: center; }
+.result-diff.pos { color: var(--success); }
+.result-diff.neg { color: var(--danger); }
+.result-breakdown { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.rb-card { background: var(--card); border-radius: 8px; padding: 10px; text-align: center; border: 1px solid var(--border); }
+.rb-n { font-size: 22px; font-weight: 600; }
+.rb-l { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.rb-correct .rb-n { color: var(--success); }
+.rb-partial  .rb-n { color: #f59e0b; }
+.rb-wrong    .rb-n { color: var(--danger); }
+.result-xp-row { font-size: 13px; color: var(--text-muted); }
+.result-medal { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: rgba(245,158,11,0.1); border-radius: 8px; font-size: 13px; color: #f59e0b; font-weight: 600; }
+
+/* === TASK 13: Unified Modals === */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
+}
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+}
+.modal-header h2, .modal-header h3 { font-size: 15px; font-weight: 600; margin: 0; }
+.modal-close-btn {
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.15s, color 0.15s;
+}
+.modal-close-btn:hover { background: var(--danger); color: white; border-color: var(--danger); }
+.modal-body { padding: 18px; }
+
+/* === TASK 14: XP Bar Progress === */
+.xp-rank-name { font-size: 11px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
+.xp-bar-top { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+.xp-bar-bg { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.xp-bar-fill { height: 100%; background: var(--primary); border-radius: 99px; transition: width 0.5s ease; }
+
+/* === TASK 15: Cheat Overlay Animations === */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes shake {
+    0%,100% { transform: translateX(0); }
+    15%      { transform: translateX(-8px) rotate(-1deg); }
+    30%      { transform: translateX(8px)  rotate(1deg); }
+    45%      { transform: translateX(-6px); }
+    60%      { transform: translateX(6px); }
+    75%      { transform: translateX(-3px); }
+    90%      { transform: translateX(3px); }
+}
+#cheat-overlay {
+    animation: fadeIn 0.3s ease;
+}
+#cheat-overlay h1 {
+    animation: shake 0.5s ease 0.3s both;
+}
+
+/* === TASK 16: Mobile Sidebar Collapse === */
+.sidebar-toggle-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+}
+
+@media (max-width: 768px) {
+    .sidebar-toggle-btn { display: flex; }
+
+    #sidebar {
+        position: fixed;
+        top: 0; left: 0;
+        height: 100%;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 200;
+    }
+    #sidebar.open { transform: translateX(0); }
+
+    #sidebar-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 199;
+    }
+    #sidebar-backdrop.visible { display: block; }
+
+    #main { width: 100%; }
+
+    #mobile-toggle { display: none; }
+}

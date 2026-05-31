@@ -14,8 +14,14 @@ ATLAS_INDEX_FILE = os.path.join(BASE_DIR, "atlas_processed", "atlas_index.json")
 
 # --- AUTH ---
 NGROK_TOKEN = os.getenv("NGROK_AUTH_TOKEN")
-ACCESS_PASSWORD = os.getenv("ACCESS_PASSWORD", "komostas")
-ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD", "admin")
+ACCESS_PASSWORD = os.getenv("ACCESS_PASSWORD")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
+
+if not ACCESS_PASSWORD or not ADMIN_PASSWORD:
+    raise RuntimeError(
+        "ACCESS_PASSWORD i ADMIN_PASSWORD moraju biti postavljeni u .env fajlu!"
+    )
+
 NGROK_DOMAIN = os.getenv("NGROK_DOMAIN", "")
 
 # --- AI ---
@@ -86,3 +92,9 @@ MEDALS = {
 }
 
 DEFAULT_GRADIVO = {}  # Nije više bitno jer koristimo DB
+
+# Atlas OCR alati
+TESSERACT_CMD = os.getenv("TESSERACT_CMD", r"C:\Program Files\Tesseract-OCR\tesseract.exe")
+POPPLER_PATH = os.getenv("POPPLER_PATH", r"C:\Program Files\poppler-24\Library\bin")
+INPUT_PDF = os.getenv("INPUT_PDF", os.path.join(BASE_DIR, "sobotta-anatomski-atlas.pdf"))
+BASE_OUTPUT_DIR = os.path.join(BASE_DIR, "atlas_processed")
