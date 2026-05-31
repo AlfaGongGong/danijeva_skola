@@ -10,6 +10,10 @@ from dotenv import load_dotenv
 from pyngrok import ngrok
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from google import genai
+import os
+
+# Inicijalizacija klijenta
+client = genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
 
 # Učitavanje konfiguracije
 from config import (
@@ -436,7 +440,7 @@ def api_save():
         )
 
         # Generisanje loga i brutalnog izvještaja
-        safe_student = re.sub(r'[^a-zA-Z0-9_]', '', student)[:20]
+        safe_student = re.sub(r"[^a-zA-Z0-9_]", "", student)[:20]
         fname = f"LOG_{safe_student}_{time.strftime('%Y%m%d_%H%M%S')}.txt"
         log_data = d.copy()
         log_data.update({"xp_gained": xp_gained, "rushed": is_rushed})
