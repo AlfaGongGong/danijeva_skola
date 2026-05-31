@@ -169,6 +169,69 @@ def save_lesson_data(subject, topic, data):
         conn.close()
 
 
+def get_questions(subject, topic):
+    """Retrieve cached questions for a given subject/topic."""
+    conn = get_db()
+    c = conn.cursor()
+    try:
+        c.execute(
+            "SELECT id FROM lessons WHERE subject = ? AND topic = ?", (subject, topic)
+        )
+        row = c.fetchone()
+        if not row:
+            return []
+        lesson_id = row["id"]
+        c.execute(
+            "SELECT question, answer, options, q_type FROM questions WHERE lesson_id = ?",
+            (lesson_id,),
+        )
+        rows = c.fetchall()
+        questions = []
+        for r in rows:
+            q = {"q": r["question"], "a": r["answer"], "t": r["q_type"]}
+            try:
+                q["o"] = json.loads(r["options"]) if r["options"] else []
+            except (json.JSONDecodeError, TypeError):
+                q["o"] = []
+            questions.append(q)
+        return questions
+    finally:
+        conn.close()
+
+
+def save_questions(subject, topic, questions):
+    """Save questions for a given subject/topic, replacing any existing ones."""
+    conn = get_db()
+    c = conn.cursor()
+    try:
+        c.execute(
+            "SELECT id FROM lessons WHERE subject = ? AND topic = ?", (subject, topic)
+        )
+        row = c.fetchone()
+        if not row:
+            c.execute(
+                "INSERT INTO lessons (subject, topic, content) VALUES (?, ?, ?)",
+                (subject, topic, ""),
+            )
+            lesson_id = c.lastrowid
+        else:
+            lesson_id = row["id"]
+
+        c.execute("DELETE FROM questions WHERE lesson_id = ?", (lesson_id,))
+        for q in questions:
+            q_text = q.get("q", "") if isinstance(q, dict) else ""
+            a_text = q.get("a", "") if isinstance(q, dict) else ""
+            opts = json.dumps(q.get("o", [])) if isinstance(q, dict) else "[]"
+            q_type = q.get("t", "text") if isinstance(q, dict) else "text"
+            c.execute(
+                "INSERT INTO questions (lesson_id, question, answer, options, q_type) VALUES (?,?,?,?,?)",
+                (lesson_id, q_text, a_text, opts, q_type),
+            )
+        conn.commit()
+    finally:
+        conn.close()
+
+
 # User Stats Helpers
 def get_user_stats_from_db(username="Dani"):
     conn = get_db()
