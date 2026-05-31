@@ -1,0 +1,15 @@
+# Core
+flask>=3.0
+python-dotenv>=1.0
+
+# AI
+google-genai>=1.0
+
+# Ngrok (remote access)
+pyngrok>=7.0
+
+# OCR & Atlas processing (optional — only needed for atlas.py)
+pytesseract>=0.3
+pdf2image>=1.16
+Pillow>=10.0
+tqdm>=4.60
