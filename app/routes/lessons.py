@@ -241,9 +241,11 @@ def api_content():
         save_lesson_data(
             subject=subject,
             topic=lesson,
-            content=json.dumps(modules, ensure_ascii=False),
-            image_path=atlas_image,
-            cards=json.dumps(cards, ensure_ascii=False) if cards else None
+            data={
+                "modules": modules,
+                "local_image": atlas_image,
+                "cards": cards
+            }
         )
         logging.info(f"Saved lesson to DB: {subject} - {lesson}")
     except Exception as e:
