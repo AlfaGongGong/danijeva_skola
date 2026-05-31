@@ -216,11 +216,13 @@ def api_save():
         )
 
         # Generisanje loga i brutalnog izvještaja
-        safe_student = re.sub(r'[^a-zA-Z0-9_-]', '', student)
+        safe_student = re.sub(r'[^a-zA-Z0-9_]', '', student)[:20]
         fname = f"LOG_{safe_student}_{time.strftime('%Y%m%d_%H%M%S')}.txt"
+        fname = os.path.basename(fname)
+        log_path = os.path.join(IZVJESTAJI_DIR, fname)
         log_data = d.copy()
         log_data.update({"xp_gained": xp_gained, "rushed": is_rushed})
-        with open(os.path.join(IZVJESTAJI_DIR, fname), "w", encoding="utf-8") as f:
+        with open(log_path, "w", encoding="utf-8") as f:
             json.dump(log_data, f, indent=4, ensure_ascii=False)
 
         report_msg = generate_dani_warning(log_data)
@@ -298,8 +300,11 @@ def api_admin_lr():
         if not fn or "/" in fn or "\\" in fn or ".." in fn:
             return jsonify({"ok": False})
         safe_fn = os.path.basename(fn)
-        filepath = os.path.join(IZVJESTAJI_DIR, safe_fn)
-        if not os.path.abspath(filepath).startswith(os.path.abspath(IZVJESTAJI_DIR)):
+        if not safe_fn or not safe_fn.endswith(".txt"):
+            return jsonify({"ok": False})
+        abs_dir = os.path.abspath(IZVJESTAJI_DIR)
+        filepath = os.path.join(abs_dir, safe_fn)
+        if not filepath.startswith(abs_dir):
             return jsonify({"ok": False})
         with open(filepath, "r", encoding="utf-8") as f:
             return jsonify({"ok": True, "data": json.load(f)})
