@@ -46,6 +46,164 @@ const MEDAL_DETAILS = {
   "CHEATER": { name: "Prevarant", desc: "Izašao iz taba.", type: "bad" }
 };
 
+// --- TASK 9: Subject Icons ---
+const SUBJECT_ICONS = {
+    "Matematika":            "📐",
+    "Kemija":                "⚗️",
+    "Anatomija":             "🦴",
+    "Osnove zdravstvene njege": "🩺",
+    "Biologija":             "🧬",
+    "Latinski jezik":        "🏛️"
+};
+
+// --- TASK 10: Timer Bar ---
+function updateTimerBar(timeLeft, total) {
+    const pct = (timeLeft / total) * 100;
+    const fill = document.getElementById('timer-bar-fill');
+    const secs = document.getElementById('timer-seconds');
+    const counter = document.getElementById('question-counter');
+
+    if (secs) secs.textContent = timeLeft + 's';
+    if (fill) {
+        fill.style.width = pct + '%';
+        if (pct > 50)      fill.style.background = 'var(--primary)';
+        else if (pct > 25) fill.style.background = '#f59e0b';
+        else               fill.style.background = 'var(--danger)';
+    }
+    if (counter) counter.textContent = `Pitanje ${CUR_Q + 1}/${QS.length}`;
+}
+
+// --- TASK 11: Answer Feedback ---
+function showAnswerFeedback(result, correctAnswer, userAnswer) {
+    const container = document.getElementById('feedback-area');
+    if (!container) return;
+
+    if (result === 'CORRECT') {
+        container.innerHTML = `
+            <div class="feedback feedback-correct">
+                <i class="fa-solid fa-check"></i> Tačno!
+            </div>`;
+    } else if (result === 'PARTIAL') {
+        container.innerHTML = `
+            <div class="feedback feedback-partial">
+                <i class="fa-solid fa-circle-half-stroke"></i> Djelimično tačno
+                <div class="feedback-answer">Potpun odgovor: <strong>${correctAnswer}</strong></div>
+            </div>`;
+    } else {
+        container.innerHTML = `
+            <div class="feedback feedback-wrong">
+                <i class="fa-solid fa-xmark"></i> Netačno
+                <div class="feedback-answer">Tačan odgovor: <strong>${correctAnswer}</strong></div>
+            </div>`;
+    }
+}
+
+// --- TASK 12: Result Dashboard ---
+function showResultDashboard(data) {
+    const prevDiff = data.prevScore
+        ? `<span class="result-diff ${data.scorePercent >= data.prevScore ? 'pos' : 'neg'}">
+               ${data.scorePercent >= data.prevScore ? '▲' : '▼'}
+               ${Math.abs(data.scorePercent - data.prevScore).toFixed(1)}% vs prošli put
+           </span>`
+        : '';
+
+    const container = document.getElementById('result-container') || document.getElementById('work-content');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="result-dashboard">
+            <div class="result-score-row">
+                <span class="result-big-num">${data.scorePercent.toFixed(0)}</span>
+                <span class="result-denom">/100</span>
+                ${prevDiff}
+            </div>
+            <div class="result-breakdown">
+                <div class="rb-card rb-correct"><div class="rb-n">${data.correct}</div><div class="rb-l">Tačno</div></div>
+                <div class="rb-card rb-partial"><div class="rb-n">${data.partial}</div><div class="rb-l">Djelimično</div></div>
+                <div class="rb-card rb-wrong"><div class="rb-n">${data.wrong}</div><div class="rb-l">Netačno</div></div>
+            </div>
+            <div class="result-xp-row">+${data.xpGained} XP — ${Math.floor(data.duration)}s</div>
+            ${data.medals.map(m => `<div class="result-medal">${MEDAL_ICONS[m] || '🏅'} ${MEDAL_DETAILS[m]?.name || m}</div>`).join('')}
+            <button class="btn btn-primary btn-lg" onclick="goBack('view-select')" style="margin-top:15px;">NASTAVI</button>
+        </div>`;
+}
+
+// --- TASK 13: Modal Helpers ---
+function openModal(id)  { document.getElementById(id)?.classList.add('active'); }
+function closeModal(id) { document.getElementById(id)?.classList.remove('active'); }
+
+// --- TASK 14: XP Bar with Rank Progress ---
+const RANK_THRESHOLDS = [
+    { xp:     0, name: "PODRUMAR (LVL 1)" },
+    { xp:   500, name: "ULIČNI SVIRAČ (LVL 2)" },
+    { xp:  1200, name: "GAŽER (LVL 3)" },
+    { xp:  2500, name: "PREDGRUPA (LVL 4)" },
+    { xp:  5000, name: "STUDIO MUZIČAR (LVL 5)" },
+    { xp: 10000, name: "ROCK ZVIJEZDA (LVL 10)" },
+    { xp: 99999, name: "LEGENDA (MAX)" }
+];
+
+function getRankInfo(xp) {
+    let current = RANK_THRESHOLDS[0];
+    let next = RANK_THRESHOLDS[1];
+    for (let i = 0; i < RANK_THRESHOLDS.length - 1; i++) {
+        if (xp >= RANK_THRESHOLDS[i].xp) {
+            current = RANK_THRESHOLDS[i];
+            next = RANK_THRESHOLDS[i + 1];
+        }
+    }
+    const pct = Math.min(100, ((xp - current.xp) / (next.xp - current.xp)) * 100);
+    return { current: current.name, next: next.name, pct, toNext: next.xp - xp };
+}
+
+function renderXPBar(xp) {
+    const container = document.getElementById('xp-bar-container');
+    if (!container) return;
+    const { current, next, pct, toNext } = getRankInfo(xp);
+    container.innerHTML = `
+        <div class="xp-rank-name">${current}</div>
+        <div class="xp-bar-top">
+            <span>${xp} XP</span>
+            <span>${toNext} do sljedećeg</span>
+        </div>
+        <div class="xp-bar-bg"><div class="xp-bar-fill" style="width:${pct}%"></div></div>`;
+}
+
+// --- TASK 15: Cheat Overlay Animation ---
+function showCheatOverlay() {
+    const el = document.getElementById('cheat-overlay');
+    if (!el) return;
+    el.style.display = 'flex';
+    el.style.animation = 'none';
+    el.offsetHeight; // force reflow
+    el.style.animation = '';
+}
+
+// --- TASK 16: Sidebar Toggle ---
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const backdrop = document.getElementById('sidebar-backdrop');
+
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('open');
+            if (backdrop) backdrop.classList.toggle('visible');
+        });
+    }
+    if (backdrop) {
+        backdrop.addEventListener('click', function() {
+            if (sidebar) sidebar.classList.remove('open');
+            backdrop.classList.remove('visible');
+        });
+    }
+
+    // Close modal on overlay click
+    document.querySelectorAll('.modal-overlay').forEach(function(m) {
+        m.addEventListener('click', function(e) { if (e.target === m) closeModal(m.id); });
+    });
+});
+
 function resetIdle() {
   idleSeconds = 0;
   hasWarnedIdle = false;
@@ -85,11 +243,11 @@ function initTelemetry(mode) {
 document.addEventListener("visibilitychange", () => {
   if (document.hidden && document.getElementById('view-work').classList.contains('active')) {
     logEvent("WARNING", "Tab Switch", "Otišao sa stranice.");
-    let overlay = document.getElementById('cheat-overlay');
-    if (overlay) {
-      overlay.style.display = 'flex';
-      setTimeout(() => overlay.style.display = 'none', 3000);
-    }
+    showCheatOverlay();
+    setTimeout(() => {
+      let overlay = document.getElementById('cheat-overlay');
+      if (overlay) overlay.style.display = 'none';
+    }, 3000);
   }
 });
 
@@ -159,16 +317,15 @@ function handleLogout() {
   } else {
     let durationSecs = Math.floor((Date.now() - LOGIN_TIME) / 1000);
     if (durationSecs < 120 && LOGIN_TIME !== 0) {
-      let doomModal = document.getElementById('doom-modal');
       let doomContent = document.getElementById('doom-content');
-      if (doomModal && doomContent) {
+      if (doomContent) {
         doomContent.innerHTML = `
             <b>AKTIVNO VRIJEME:</b> ${durationSecs} sekundi<br><br>
             <span style='color:#ef4444; font-weight:bold;'>KATASTROFA. Ušao si i izašao brže nego što ti treba da otvoriš TikTok!</span><br><br>
             <span style='color:#eab308; font-weight:bold;'>Zabilježen pokušaj lažiranja prisustva. Sistem te je ulovio.</span><br><br>
             <i style='color:#a1a1aa;'>Sjedi i izaberi muku, nema bježanja.</i>
         `;
-        doomModal.style.display = 'flex';
+        openModal('doom-modal');
       }
     } else {
       location.reload();
@@ -356,14 +513,20 @@ function startTimer() {
   const bar = document.getElementById("timer-bar");
   const text = document.getElementById("timer-text");
   const card = document.getElementById("question-card");
+  const timerContainer = document.getElementById("timer-container");
 
   if (bar) bar.style.backgroundColor = "var(--primary)";
   if (card) card.classList.remove("drama-mode");
+  if (timerContainer) timerContainer.style.display = "block";
+
+  updateTimerBar(TIME_LEFT, TIME_PER_QUESTION);
 
   QUESTION_TIMER = setInterval(() => {
     TIME_LEFT--;
     if (text) text.innerText = TIME_LEFT + "s";
     if (bar) bar.style.width = (TIME_LEFT / TIME_PER_QUESTION) * 100 + "%";
+
+    updateTimerBar(TIME_LEFT, TIME_PER_QUESTION);
 
     if (TIME_LEFT <= 10 && card && bar) {
       card.classList.add("drama-mode");
@@ -399,14 +562,18 @@ async function submitAnswer(u, a) {
   }
   SCORE += score;
 
-  let isCorrect = score >= 0.5;
+  let result = score >= 1.0 ? 'CORRECT' : (score >= 0.5 ? 'PARTIAL' : 'WRONG');
+  let userDisplay = u === "TIMEOUT" ? "⏰ ISTEKLO VRIJEME" : (u || "Prazno");
+
+  showAnswerFeedback(result, a, userDisplay);
+
   let feedbackHtml = `
-  <div class="feedback-box ${isCorrect ? 'fb-correct' : 'fb-wrong'}">
-      <h2 style="margin:0">${isCorrect ? '✅ TOČNO' : '❌ KRIVO'}</h2>
+  <div class="feedback-box ${score >= 0.5 ? 'fb-correct' : 'fb-wrong'}">
+      <h2 style="margin:0">${score >= 0.5 ? '✅ TOČNO' : '❌ KRIVO'}</h2>
       <div style="margin:15px 0; text-align:left;">
           <p style="margin:5px 0; color:var(--text-muted);">Tvoj odgovor:</p>
           <div style="font-size:1.1rem; font-weight:bold;">${userDisplay}</div>
-          ${!isCorrect ? `<hr style="border-color:rgba(0,0,0,0.1); margin:10px 0;"><p style="margin:5px 0; color:var(--text-muted);">Točan odgovor:</p><div style="font-size:1.1rem; font-weight:bold;">${a}</div>` : ''}
+          ${score < 0.5 ? `<hr style="border-color:rgba(0,0,0,0.1); margin:10px 0;"><p style="margin:5px 0; color:var(--text-muted);">Točan odgovor:</p><div style="font-size:1.1rem; font-weight:bold;">${a}</div>` : ''}
       </div>
       <button class="btn btn-primary" onclick="CUR_Q++; nextQuestion()" id="next-btn">${CUR_Q < QS.length - 1 ? 'SLJEDEĆE ➜' : 'KRAJ 🏁'}</button>
   </div>`;
@@ -448,10 +615,9 @@ async function finishSession(aborted = false) {
 
     if (resp.report) {
       let doomContent = document.getElementById('doom-content');
-      let doomModal = document.getElementById('doom-modal');
-      if (doomContent && doomModal) {
+      if (doomContent) {
         doomContent.innerHTML = resp.report;
-        doomModal.style.display = 'flex';
+        openModal('doom-modal');
       }
     }
 
@@ -501,6 +667,8 @@ function updateStatsUI() {
     let fill = document.querySelector(".xp-fill");
     if (fill) fill.style.width = `${Math.min((d.xp % 500) / 500 * 100, 100)}%`;
 
+    renderXPBar(d.xp || 0);
+
     if (d.medals) {
       let badgesHtml = d.medals.map(m => `<span style="margin-right:5px; font-size:1.2rem;">${MEDAL_ICONS[m] || '🏅'}</span>`).join("");
       let bc = document.getElementById("user-badges");
@@ -521,7 +689,7 @@ function zoomImg(s, type) {
 // Admin
 async function saveAdminData() { try { let d = JSON.parse(document.getElementById("editor-area").value); await fetch("/api/admin/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(d) }); alert("Spremljeno!"); location.reload(); } catch (e) { alert("JSON Error!"); } }
 async function adminLoadLogs() { let r = await fetch("/api/admin/logs/list", { method: "POST" }); let d = await r.json(); document.getElementById("admin-logs-list").innerHTML = d.files ? d.files.map(f => `<div onclick="adminViewLog('${f}')">📄 ${f}</div>`).join("") : "Nema logova."; }
-async function adminViewLog(f) { let r = await fetch("/api/admin/logs/read", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ filename: f }) }); let d = await r.json(); document.getElementById("log-content").innerText = JSON.stringify(d.data, null, 2); document.getElementById("log-modal").style.display = "flex"; }
+async function adminViewLog(f) { let r = await fetch("/api/admin/logs/read", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ filename: f }) }); let d = await r.json(); document.getElementById("log-content").innerText = JSON.stringify(d.data, null, 2); openModal('log-modal'); }
 
 function toggleFloatingCalc() {
   let f = document.getElementById("floating-calc");
@@ -559,14 +727,14 @@ function openTrophyRoom() {
     if (goodL) goodL.innerHTML = goodHtml || "<p>Prazno.</p>";
     if (badL) badL.innerHTML = badHtml || "<p>Čisto.</p>";
     let m = document.getElementById("trophy-modal");
-    if (m) m.style.display = "flex";
+    if (m) openModal('trophy-modal');
   }).catch(e => console.log(e));
 }
 
 function openPSE() {
   logEvent("INFO", "Otvorio PSE", "");
   let m = document.getElementById("pse-modal");
-  if (m) m.style.display = "flex";
+  if (m) openModal('pse-modal');
 
   const c = document.getElementById("pse-grid-container");
   if (!c || c.innerHTML.trim() !== "") return;

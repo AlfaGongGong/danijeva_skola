@@ -20,6 +20,7 @@ def init_db():
         subject TEXT NOT NULL,
         topic TEXT NOT NULL,
         content TEXT,
+        image_path TEXT,
         UNIQUE(subject, topic)
     )"""
     )

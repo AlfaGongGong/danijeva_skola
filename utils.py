@@ -8,7 +8,20 @@ from functools import wraps
 
 from flask import request, jsonify
 
-from config import ACCESS_PASSWORD, ADMIN_PASSWORD, ATLAS_DIR
+from config import ACCESS_PASSWORD, ADMIN_PASSWORD, ATLAS_DIR, ATLAS_INDEX_FILE
+
+_atlas_index_cache = None
+
+
+def get_atlas_index():
+    global _atlas_index_cache
+    if _atlas_index_cache is None:
+        try:
+            with open(ATLAS_INDEX_FILE, "r", encoding="utf-8") as f:
+                _atlas_index_cache = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            _atlas_index_cache = []
+    return _atlas_index_cache
 
 
 # utils.py (samo funkcija requires_auth)
@@ -24,13 +37,13 @@ def requires_auth(f):
         # Dohvati IP adresu s koje dolazi zahtjev
         client_ip = request.remote_addr
 
-        # 1. LOCALHOST BYPASS (Ako si doma na svom kompu)
+        # 1. LOCALHOST — zahtijeva lozinku
         if client_ip in ["127.0.0.1", "::1"]:
-            # Ako si lokalno i kažeš da si admin, vjerujemo ti bez šifre
-            if user == "admin":
+            if user == "admin" and pw == ADMIN_PASSWORD:
                 return f(*args, **kwargs)
-            # Ako si lokalno a nisi admin, automatski si student
-            return jsonify({"ok": True, "role": "student", "user": user})
+            elif pw == ACCESS_PASSWORD:
+                return jsonify({"ok": True, "role": "student", "user": user})
+            return jsonify({"ok": False, "msg": "Pristup odbijen"})
 
         # 2. STANDARDNA PROVJERA (Ako pristupaš preko Ngroka/Interneta)
         if user == "admin" and pw == ADMIN_PASSWORD:

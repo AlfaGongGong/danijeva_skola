@@ -13,17 +13,9 @@ from tqdm import tqdm
 # 1. KONFIGURACIJA (Vaše putanje su ubačene ovdje)
 # ==============================================================================
 
-# Putanja do vašeg PDF fajla (Zamijenite ako je drugačije)
-INPUT_PDF = (
-    r"C:\Users\AlfaGongGong\Документы\GitHub\testovi\sobotta-anatomski-atlas.pdf"
-)
-
-# Vaše sistemske putanje
-TESSERACT_CMD = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-POPPLER_PATH = r"C:\Program Files\poppler-xx\bin"  # <--- PROVJERITE DA LI SE FOLDER STVARNO ZOVE 'xx'
+from config import TESSERACT_CMD, POPPLER_PATH, INPUT_PDF, BASE_OUTPUT_DIR
 
 # Folderi za izlaz
-BASE_OUTPUT_DIR = "atlas_processed"
 DB_FILE_NAME = "atlas_index.json"
 
 # ==============================================================================
