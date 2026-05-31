@@ -1,5 +1,6 @@
 import os
 import json
+import re
 import time
 import logging
 import sqlite3
@@ -215,7 +216,8 @@ def api_save():
         )
 
         # Generisanje loga i brutalnog izvještaja
-        fname = f"LOG_{student}_{time.strftime('%Y%m%d_%H%M%S')}.txt"
+        safe_student = re.sub(r'[^a-zA-Z0-9_-]', '', student)
+        fname = f"LOG_{safe_student}_{time.strftime('%Y%m%d_%H%M%S')}.txt"
         log_data = d.copy()
         log_data.update({"xp_gained": xp_gained, "rushed": is_rushed})
         with open(os.path.join(IZVJESTAJI_DIR, fname), "w", encoding="utf-8") as f:
@@ -237,7 +239,7 @@ def api_save():
 
     except Exception as e:
         logging.error(f"Save error: {e}")
-        return jsonify({"ok": False, "error": str(e)})
+        return jsonify({"ok": False, "error": "Internal server error"})
 
 
 @stats_bp.route("/get_analytics", methods=["POST"])
@@ -293,9 +295,13 @@ def api_admin_ll():
 def api_admin_lr():
     try:
         fn = request.json.get("filename")
-        if not fn or "/" in fn:
+        if not fn or "/" in fn or "\\" in fn or ".." in fn:
             return jsonify({"ok": False})
-        with open(os.path.join(IZVJESTAJI_DIR, fn), "r", encoding="utf-8") as f:
+        safe_fn = os.path.basename(fn)
+        filepath = os.path.join(IZVJESTAJI_DIR, safe_fn)
+        if not os.path.abspath(filepath).startswith(os.path.abspath(IZVJESTAJI_DIR)):
+            return jsonify({"ok": False})
+        with open(filepath, "r", encoding="utf-8") as f:
             return jsonify({"ok": True, "data": json.load(f)})
     except Exception:
         return jsonify({"ok": False})

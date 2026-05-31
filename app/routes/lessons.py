@@ -45,7 +45,6 @@ def ai_generate_json(prompt):
     if not ai_client:
         return None
     try:
-        from google import genai
         response = ai_client.models.generate_content(model=MODEL_ID, contents=prompt)
         if not response.text:
             return None
