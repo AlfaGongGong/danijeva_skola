@@ -563,6 +563,9 @@ async function submitAnswer(u, a) {
   if (opts) { opts.style.pointerEvents = "none"; opts.style.opacity = "0.6"; }
 
   let userDisplay = u === "TIMEOUT" ? "⏰ ISTEKLO VRIJEME" : (u || "Prazno");
+  // Escape HTML entities to prevent XSS
+  let safeUserDisplay = userDisplay.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  let safeAnswer = String(a).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   let score = 0;
 
   if (u !== "TIMEOUT") {
@@ -586,8 +589,8 @@ async function submitAnswer(u, a) {
       <h2 style="margin:0">${score >= 0.5 ? '✅ TOČNO' : '❌ KRIVO'}</h2>
       <div style="margin:15px 0; text-align:left;">
           <p style="margin:5px 0; color:var(--text-muted);">Tvoj odgovor:</p>
-          <div style="font-size:1.1rem; font-weight:bold;">${userDisplay}</div>
-          ${score < 0.5 ? `<hr style="border-color:rgba(0,0,0,0.1); margin:10px 0;"><p style="margin:5px 0; color:var(--text-muted);">Točan odgovor:</p><div style="font-size:1.1rem; font-weight:bold;">${a}</div>` : ''}
+          <div style="font-size:1.1rem; font-weight:bold;">${safeUserDisplay}</div>
+          ${score < 0.5 ? `<hr style="border-color:rgba(0,0,0,0.1); margin:10px 0;"><p style="margin:5px 0; color:var(--text-muted);">Točan odgovor:</p><div style="font-size:1.1rem; font-weight:bold;">${safeAnswer}</div>` : ''}
       </div>
       <button class="btn btn-primary" onclick="CUR_Q++; nextQuestion()" id="next-btn">${CUR_Q < QS.length - 1 ? 'SLJEDEĆE ➜' : 'KRAJ 🏁'}</button>
   </div>`;

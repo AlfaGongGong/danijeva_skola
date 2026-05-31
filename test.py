@@ -502,8 +502,11 @@ def api_admin_lr():
         safe_fn = os.path.basename(fn)
         if not safe_fn or not safe_fn.endswith(".txt"):
             return jsonify({"ok": False})
-        filepath = os.path.join(os.path.abspath(IZVJESTAJI_DIR), safe_fn)
-        if not filepath.startswith(os.path.abspath(IZVJESTAJI_DIR)):
+        abs_dir = os.path.realpath(IZVJESTAJI_DIR)
+        filepath = os.path.realpath(os.path.join(abs_dir, safe_fn))
+        if not filepath.startswith(abs_dir + os.sep) and filepath != abs_dir:
+            return jsonify({"ok": False})
+        if not os.path.isfile(filepath):
             return jsonify({"ok": False})
         with open(filepath, "r", encoding="utf-8") as f:
             return jsonify({"ok": True, "data": json.load(f)})
