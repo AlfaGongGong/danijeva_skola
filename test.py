@@ -105,7 +105,7 @@ def load_gradivo_from_db():
                 gradivo[sub] = {}
             gradivo[sub][topic] = ""
         return gradivo
-    except:
+    except Exception:
         return {}
 
 
@@ -124,14 +124,14 @@ def get_user_stats_from_db(username="Dani"):
             if row["medals"]:
                 try:
                     medals = json.loads(row["medals"])
-                except:
+                except Exception:
                     pass
 
             completed = []
             if row["completed_lessons"]:
                 try:
                     completed = json.loads(row["completed_lessons"])
-                except:
+                except Exception:
                     pass
 
             return {
@@ -173,7 +173,7 @@ def load_atlas_index():
         try:
             with open(ATLAS_INDEX_FILE, "r", encoding="utf-8") as f:
                 return json.load(f)
-        except:
+        except Exception:
             pass
     return []
 
@@ -308,7 +308,7 @@ def api_content():
         elif m == "LEARN":
             try:
                 modules = json.loads(db_data["content"])
-            except:
+            except Exception:
                 modules = [{"title": "Lekcija", "content": db_data["content"]}]
 
             return jsonify(
@@ -337,7 +337,7 @@ def api_content():
                     ai_data["local_image"] = atlas_img
             try:
                 save_lesson_data(p, l, ai_data)
-            except:
+            except Exception:
                 pass
 
     elif m == "TEST":
@@ -346,7 +346,7 @@ def api_content():
         if ai_data:
             try:
                 save_lesson_data(p, l, ai_data)
-            except:
+            except Exception:
                 pass
 
     if ai_data:
@@ -368,12 +368,11 @@ def api_grade():
     if data and "score" in data:
         try:
             score = float(data["score"])
-        except:
+        except Exception:
             pass
     return jsonify({"score": score})
 
 
-@app.route("/api/save", methods=["POST"])
 @app.route("/api/save", methods=["POST"])
 def api_save():
     d = request.json or {}
@@ -421,8 +420,6 @@ def api_save():
             stats["medals"].append("BOOKWORM")
 
         current_rank = "PODRUMAR"
-        from config import RANKS
-
         for xp_req, title in sorted(RANKS.items()):
             if stats["xp"] >= xp_req:
                 current_rank = title
@@ -439,7 +436,8 @@ def api_save():
         )
 
         # Generisanje loga i brutalnog izvještaja
-        fname = f"LOG_{student}_{time.strftime('%Y%m%d_%H%M%S')}.txt"
+        safe_student = re.sub(r'[^a-zA-Z0-9_]', '', student)[:20]
+        fname = f"LOG_{safe_student}_{time.strftime('%Y%m%d_%H%M%S')}.txt"
         log_data = d.copy()
         log_data.update({"xp_gained": xp_gained, "rushed": is_rushed})
         with open(os.path.join(IZVJESTAJI_DIR, fname), "w", encoding="utf-8") as f:
@@ -455,103 +453,13 @@ def api_save():
                 "new_rank": current_rank,
                 "medals": [],
                 "rushed": is_rushed,
-                "report": report_msg,  # Ovdje šaljemo poruku u HTML
+                "report": report_msg,
             }
         )
 
     except Exception as e:
         logging.error(f"Save error: {e}")
-        return jsonify({"ok": False, "error": str(e)})
-    d = request.json or {}
-    student = d.get("student", "Unknown")
-    score_percent = d.get("score_percent", 0)
-    mode = d.get("mode", "LEARN")
-
-    try:
-        # SIGURNO DOHVAĆANJE STATISTIKE
-        stats = get_user_stats_from_db(student)
-
-        # PYLANCE FIX: Ako se ipak dogodi nemoguće, postavi default
-        if stats is None:
-            stats = {"xp": 0, "lvl": 1, "medals": [], "completed_lessons": []}
-
-        xp_gained = 0
-        is_rushed = False
-
-        if mode == "TEST":
-            xp_gained = int(score_percent * 5)
-            if score_percent == 100:
-                if "NERD" not in stats["medals"]:
-                    stats["medals"].append("NERD")
-                    xp_gained += 200
-            elif 50 <= score_percent < 60:
-                if "SURVIVOR" not in stats["medals"]:
-                    stats["medals"].append("SURVIVOR")
-            if score_percent < 20:
-                if "BROKEN_STICK" not in stats["medals"]:
-                    stats["medals"].append("BROKEN_STICK")
-
-        elif mode == "LEARN":
-            if not d.get("rushed"):
-                xp_gained = 150
-            else:
-                is_rushed = True
-                if "SPEEDING_TICKET" not in stats["medals"]:
-                    stats["medals"].append("SPEEDING_TICKET")
-
-        # Cheat check
-        for t in d.get("telemetry", []):
-            if t.get("type") == "DANGER":
-                xp_gained = 0
-                if "CHEATER" not in stats["medals"]:
-                    stats["medals"].append("CHEATER")
-                break
-
-        # Ažuriraj XP
-        stats["xp"] += xp_gained
-        stats["lvl"] = 1 + (stats["xp"] // 500)
-
-        if stats["xp"] >= 3000 and "BOOKWORM" not in stats["medals"]:
-            stats["medals"].append("BOOKWORM")
-
-        current_rank = "PODRUMAR"
-        for xp_req, title in sorted(RANKS.items()):
-            if stats["xp"] >= xp_req:
-                current_rank = title
-
-        # Mark complete
-        if d.get("lesson") and d.get("lesson") not in stats["completed_lessons"]:
-            stats["completed_lessons"].append(d.get("lesson"))
-
-        update_user_stats_db(
-            student,
-            stats["xp"],
-            stats["lvl"],
-            stats["medals"],
-            stats["completed_lessons"],
-        )
-
-        # Log
-        fname = f"LOG_{student}_{time.strftime('%Y%m%d_%H%M%S')}.txt"
-        log_data = d.copy()
-        log_data.update({"xp_gained": xp_gained, "rushed": is_rushed})
-        with open(os.path.join(IZVJESTAJI_DIR, fname), "w", encoding="utf-8") as f:
-            json.dump(log_data, f, indent=4, ensure_ascii=False)
-
-        return jsonify(
-            {
-                "ok": True,
-                "xp_gained": xp_gained,
-                "new_lvl": stats["lvl"],
-                "new_rank": current_rank,
-                "medals": [],  # Frontend si sam učita medalje
-                "rushed": is_rushed,
-            }
-        )
-
-    except Exception as e:
-        logging.error(f"Save error: {e}")
-        return jsonify({"ok": False, "error": str(e)})
+        return jsonify({"ok": False, "error": "Internal server error"})
 
 
 # --- ADMIN ROUTES ---
@@ -566,10 +474,12 @@ def api_admin_del():
     p = d.get("predmet")
     l = d.get("lekcija")
     if p and l:
-        c = get_db().cursor()
-        c.execute("DELETE FROM lessons WHERE subject=? AND topic=?", (p, l))
-        c.connection.commit()
-        c.connection.close()
+        conn = get_db()
+        try:
+            conn.execute("DELETE FROM lessons WHERE subject=? AND topic=?", (p, l))
+            conn.commit()
+        finally:
+            conn.close()
     return jsonify({"ok": True})
 
 
@@ -579,7 +489,7 @@ def api_admin_ll():
         f = [x for x in os.listdir(IZVJESTAJI_DIR) if x.endswith(".txt")]
         f.sort(reverse=True)
         return jsonify({"ok": True, "files": f})
-    except:
+    except Exception:
         return jsonify({"ok": False})
 
 
@@ -587,11 +497,17 @@ def api_admin_ll():
 def api_admin_lr():
     try:
         fn = request.json.get("filename")
-        if not fn or "/" in fn:
+        if not fn or "/" in fn or "\\" in fn or ".." in fn:
             return jsonify({"ok": False})
-        with open(os.path.join(IZVJESTAJI_DIR, fn), "r", encoding="utf-8") as f:
+        safe_fn = os.path.basename(fn)
+        if not safe_fn or not safe_fn.endswith(".txt"):
+            return jsonify({"ok": False})
+        filepath = os.path.join(os.path.abspath(IZVJESTAJI_DIR), safe_fn)
+        if not filepath.startswith(os.path.abspath(IZVJESTAJI_DIR)):
+            return jsonify({"ok": False})
+        with open(filepath, "r", encoding="utf-8") as f:
             return jsonify({"ok": True, "data": json.load(f)})
-    except:
+    except Exception:
         return jsonify({"ok": False})
 
 
@@ -603,15 +519,17 @@ def api_admin_update_stats():
         return jsonify({"ok": False})
     try:
         new_xp = int(val)
-        c = get_db().cursor()
-        c.execute(
-            "UPDATE user_stats SET xp=?, lvl=? WHERE username='Dani'",
-            (new_xp, 1 + new_xp // 500),
-        )
-        c.connection.commit()
-        c.connection.close()
+        conn = get_db()
+        try:
+            conn.execute(
+                "UPDATE user_stats SET xp=?, lvl=? WHERE username=?",
+                (new_xp, 1 + new_xp // 500, "Dani"),
+            )
+            conn.commit()
+        finally:
+            conn.close()
         return jsonify({"ok": True})
-    except:
+    except Exception:
         return jsonify({"ok": False})
 
 
@@ -624,7 +542,7 @@ def start_ngrok():
             os.system("taskkill /f /im ngrok.exe >nul 2>&1")
         url = ngrok.connect(addr="5000", domain=NGROK_DOMAIN).public_url
         print(f"\n>>> SISTEM ONLINE NA: {url} <<<\n")
-    except:
+    except Exception:
         pass
 
 

@@ -12,16 +12,22 @@ def normalize_text(text):
     return text
 
 
-def check_answer(user_input, correct_answer, keywords=[]):
+def check_answer(user_input, correct_answer, keywords=None):
     """
     Vraća (score, feedback_type).
     Score: 0.0 do 1.0
     Type: 'CORRECT', 'PARTIAL', 'WRONG'
     """
+    if keywords is None:
+        keywords = []
+
     u_norm = normalize_text(user_input)
     c_norm = normalize_text(correct_answer)
 
     if not u_norm:
+        return 0.0, "WRONG"
+
+    if not c_norm:
         return 0.0, "WRONG"
 
     # 1. DIREKTNA SLIČNOST (SequenceMatcher)
