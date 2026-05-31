@@ -47,6 +47,37 @@ def init_db():
     )
     conn.commit()
     conn.close()
+    seed_lessons_from_gradivo()
+
+
+def seed_lessons_from_gradivo():
+    """Seed lessons from gradivo.json into the database if they don't exist yet."""
+    import logging
+    gradivo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "gradivo.json")
+    if not os.path.exists(gradivo_path):
+        return
+    try:
+        with open(gradivo_path, "r", encoding="utf-8") as f:
+            gradivo = json.load(f)
+    except (json.JSONDecodeError, IOError) as e:
+        logging.warning(f"Could not load gradivo.json for seeding: {e}")
+        return
+
+    conn = get_db()
+    c = conn.cursor()
+    for subject, lessons in gradivo.items():
+        for topic, content_info in lessons.items():
+            c.execute(
+                "SELECT id FROM lessons WHERE subject = ? AND topic = ?",
+                (subject, topic),
+            )
+            if not c.fetchone():
+                c.execute(
+                    "INSERT INTO lessons (subject, topic, content) VALUES (?, ?, ?)",
+                    (subject, topic, content_info),
+                )
+    conn.commit()
+    conn.close()
 
 
 def get_lesson_content(subject, topic):
