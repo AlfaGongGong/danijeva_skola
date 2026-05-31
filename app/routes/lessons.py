@@ -11,7 +11,7 @@ from config import (
     GOOGLE_API_KEY,
     RANKS,
 )
-from database import get_lesson_content, save_lesson_data
+from database import get_lesson_content, save_lesson_data, get_questions, save_questions
 from utils import extract_json, find_atlas_image, get_atlas_index
 
 lessons_bp = Blueprint("lessons", __name__)
@@ -152,3 +152,46 @@ def api_content():
             "modules": [{"title": "Greška", "content": "Pokušaj ponovno."}],
         }
     )
+
+
+@lessons_bp.route("/api/generate_test", methods=["POST"])
+def api_generate_test():
+    """
+    Generates a test for a given subject/lesson.
+    Uses cached questions from DB if available.
+    """
+    d = request.json or {}
+    subject = d.get("subject", "")
+    lesson = d.get("lesson", "")
+    force_regen = d.get("force_regen", False)
+
+    if not subject or not lesson:
+        return jsonify({"ok": False, "msg": "Predmet i lekcija su obavezni"})
+
+    # Check cached questions
+    if not force_regen:
+        cached_qs = get_questions(subject, lesson)
+        if cached_qs and len(cached_qs) >= 10:
+            logging.info(f"Serving cached test: {subject} - {lesson} ({len(cached_qs)} questions)")
+            return jsonify({"ok": True, "questions": cached_qs, "source": "cache"})
+
+    # Generate new test
+    logging.info(f"Generating test: {subject} - {lesson}")
+    prompt = PROMPT_EXAMINER.format(p=subject, l=lesson)
+    ai_data = ai_generate_json(prompt)
+
+    if not ai_data or not isinstance(ai_data, list) or len(ai_data) < 5:
+        logging.error(f"Test generation failed for {subject} - {lesson}")
+        return jsonify({"ok": False, "msg": "Generacija testa nije uspjela. Pokušaj ponovo."})
+
+    # Save to DB
+    try:
+        save_questions(subject, lesson, ai_data)
+    except Exception as e:
+        logging.error(f"Failed to save questions: {e}")
+
+    return jsonify({
+        "ok": True,
+        "questions": ai_data,
+        "source": "generated"
+    })

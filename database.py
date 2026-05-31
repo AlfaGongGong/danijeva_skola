@@ -169,6 +169,84 @@ def save_lesson_data(subject, topic, data):
         conn.close()
 
 
+def get_questions(subject, topic):
+    """Get cached questions for a lesson from the database."""
+    conn = get_db()
+    try:
+        c = conn.cursor()
+        c.execute(
+            "SELECT id FROM lessons WHERE subject = ? AND topic = ?",
+            (subject, topic),
+        )
+        row = c.fetchone()
+        if not row:
+            return []
+        lesson_id = row["id"]
+        c.execute(
+            "SELECT question, answer, options, q_type FROM questions WHERE lesson_id = ?",
+            (lesson_id,),
+        )
+        questions = []
+        for q in c.fetchall():
+            try:
+                options = json.loads(q["options"]) if q["options"] else []
+            except (json.JSONDecodeError, TypeError):
+                options = []
+            questions.append(
+                {
+                    "q": q["question"],
+                    "a": q["answer"],
+                    "o": options,
+                    "t": q["q_type"],
+                }
+            )
+        return questions
+    finally:
+        conn.close()
+
+
+def save_questions(subject, topic, questions):
+    """Save generated questions for a lesson to the database."""
+    conn = get_db()
+    try:
+        c = conn.cursor()
+        c.execute(
+            "SELECT id FROM lessons WHERE subject = ? AND topic = ?",
+            (subject, topic),
+        )
+        row = c.fetchone()
+        if not row:
+            c.execute(
+                "INSERT INTO lessons (subject, topic) VALUES (?, ?)",
+                (subject, topic),
+            )
+            lesson_id = c.lastrowid
+        else:
+            lesson_id = row["id"]
+
+        c.execute("DELETE FROM questions WHERE lesson_id = ?", (lesson_id,))
+        for q in questions:
+            if isinstance(q, dict):
+                q_text = q.get("q", "")
+                a_text = q.get("a", "")
+                opts = json.dumps(q.get("o", []))
+                q_type = q.get("t", "text")
+            elif isinstance(q, list) and len(q) >= 2:
+                q_text = q[0]
+                a_text = q[1]
+                opts = "[]"
+                q_type = "text"
+            else:
+                continue
+            c.execute(
+                "INSERT INTO questions (lesson_id, question, answer, options, q_type) VALUES (?,?,?,?,?)",
+                (lesson_id, q_text, a_text, opts, q_type),
+            )
+        conn.commit()
+    finally:
+        conn.close()
+
+
 # User Stats Helpers
 def get_user_stats_from_db(username="Dani"):
     conn = get_db()
