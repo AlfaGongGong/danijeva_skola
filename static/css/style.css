@@ -546,7 +546,6 @@ body {
   inset: 0;
   background: rgba(0, 0, 0, 0.95);
   z-index: 5000;
-  display: flex;
   flex-direction: column;
   padding: 20px;
   overflow: hidden;
